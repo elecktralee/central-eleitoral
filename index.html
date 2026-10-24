@@ -187,6 +187,7 @@ tr:last-child td{border-bottom:0}
 .btn:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
 footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);font-size:.82rem;color:var(--muted);display:grid;gap:8px}
 footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);font-size:.72rem}
+footer a,.lv-p a,.meta a,.lede a{color:inherit;text-decoration-color:var(--mark);text-underline-offset:2px}
 @media (max-width:520px){.thermo{grid-template-columns:1fr}.lf{margin-left:0}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 </style>
@@ -201,7 +202,7 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
     <p class="sub"><b>A eleição, explicada.</b> Presidência da República · 2º turno de 2026</p>
     <div class="duo"><span><i class="dot dl"></i>Lula (PT)</span><span><i class="dot df"></i>Flávio Bolsonaro (PL)</span><span style="font-weight:400">Cores identificam candidatos. Não indicam aprovação, verdade ou falsidade.</span></div>
   </div>
-  <div class="edition">Edição de <strong>sáb, 24/10/2026 · 00h30</strong><br>Votação: <strong>dom, 25/10</strong> · amanhã<br>Atualização sob demanda</div>
+  <div class="edition">Edição de <strong>sáb, 24/10/2026 · 01h10</strong><br>Votação: <strong>dom, 25/10</strong> · amanhã<br>Atualização sob demanda</div>
   <div class="upd">
     <button class="btn" id="upd" type="button">↻ Atualizar agora</button>
     <p class="meta" id="updmsg" aria-live="polite">Busca as notícias, pesquisas e checagens mais recentes e republica esta página.</p>
@@ -284,7 +285,7 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
           <p class="lede">Último debate, em três blocos, com checagem ao vivo. Economia, obras paradas, fome, juros e apostas on-line dominaram as falas checadas.</p>
           <p class="lv-d">Mediação de César Tralli. A Lupa checou 25 frases (fichas CE-008 e CE-011 a CE-018). A cronologia de blocos ainda não foi consolidada.</p></li>
       </ul>
-      <p class="lv-p">O debate do pool liderado pelo SBT, previsto para 15/10, não aparece como realizado nas fontes consultadas. A Agência Brasil chama o da Band de "primeiro debate". Situação: <b>não confirmada</b>.</p>
+      <p class="lv-p">Dois debates do 2º turno foram cancelados: Record (11/10) e o pool SBT, RedeTV! e CNN Brasil (15/10). Fonte: Gazeta do Povo, 19/10.</p>
       <button class="go" data-goto="verificacoes">Ver Replay Investigativo</button>
     </article>
 
@@ -400,15 +401,24 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
   <p class="notice" style="margin-top:16px">O número de fichas por candidato reflete o que foi documentado nesta edição. Não é medida de honestidade.</p>
 
   <div class="tier"><h2>Comparador de Propostas</h2><span class="n">07</span></div>
+  <p class="lede" style="margin-bottom:12px">Planos de governo registrados no TSE para o 2º turno: <a href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/arquivos/proposta-pt">íntegra de Lula (PDF)</a> · <a href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/arquivos/proposta-pl">íntegra de Flávio (PDF)</a> · <a href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/propostas-de-governo-dos-candidatos-ao-cargo-de-presidente-da-republica-eleicoes-2026-segundo-turno">página do TSE</a></p>
   <div class="tbl"><table>
-    <thead><tr><th>Assunto</th><th class="t-l">Lula</th><th class="t-f">Flávio Bolsonaro</th><th>Fonte</th></tr></thead>
+    <thead><tr><th>Assunto</th><th class="t-l">Lula (PT)</th><th class="t-f">Flávio Bolsonaro (PL)</th></tr></thead>
     <tbody>
-      <tr><td>Segurança pública</td><td><i>Proposta específica não registrada nas fontes desta edição</i></td><td>Classificar facções criminosas como narcoterroristas; ampliar câmeras de reconhecimento facial no país; punições mais rigorosas (sem detalhar)</td><td class="n">CE-009</td></tr>
-      <tr><td>Soberania / minerais críticos</td><td>Questionou a relação de Flávio com os EUA e a soberania na exploração de minerais críticos</td><td><i>Resposta não registrada nas fontes desta edição</i></td><td class="n">CE-010</td></tr>
-      <tr><td>Programas de governo (TSE)</td><td colspan="2"><span class="st warn">Pendente</span> Documentos oficiais ainda não lidos</td><td class="n">—</td></tr>
+      <tr><td>Impostos</td><td>Isenção de IR para quem ganha até R$ 5 mil por mês, compensada com tributação dos mais ricos</td><td>Revisar a reforma tributária para limitar a alíquota do IVA; zerar impostos sobre combustíveis e energia; acabar com o IOF no câmbio. Não fixa mudança na tabela do IR</td></tr>
+      <tr><td>Contas públicas</td><td>Manter o arcabouço fiscal, com déficit primário projetado de 0,4% do PIB em 2026</td><td>Trocar o arcabouço por teto rígido de gastos discricionários e metas de redução da dívida; extinguir ao menos 10 ministérios; retomar privatizações</td></tr>
+      <tr><td>Crescimento e indústria</td><td>Nova Indústria Brasil, IA, minerais críticos e transição energética; mais de R$ 130 bi em crédito (Pronampe, Acredita, Procred 360)</td><td>Meta de crescer 4% ao ano; processar minerais críticos e atrair data centers, com prazo fixo para licença ambiental</td></tr>
+      <tr><td>Salário mínimo</td><td>Reajuste acima da inflação</td><td>Não fixa regra</td></tr>
+      <tr><td>Trabalho</td><td>Regulamentar trabalho por aplicativo; combater fraude em terceirização; Lei de Igualdade Salarial. A redução para 40 horas (fim da 6×1) já foi promulgada</td><td>Reduzir o custo de contratar; negociado sobre o legislado; contratos mais baratos para jovens de 18 a 24 anos e pessoas com mais de 50 anos</td></tr>
+      <tr><td>Segurança pública</td><td>Ministério da Segurança Pública; asfixia financeira do crime organizado; controle de armas; Celular Seguro; Plano Pena Justa</td><td>Facções tratadas como narcoterroristas (CE-009); reconhecimento facial; maioridade penal e progressão de pena; castração química para estupradores</td></tr>
+      <tr><td>Saúde</td><td>Farmácia Popular com exames; Agora tem Especialistas; Mais Médicos; saúde mental (CAPS)</td><td>Remédio em casa para idosos e doentes crônicos; SUS digital com agendamento por IA; corrigir a Tabela SUS</td></tr>
+      <tr><td>Educação</td><td>Pé-de-Meia; expansão de institutos federais; alfabetização; creches</td><td>Método fônico; escolas cívico-militares; vouchers de escola e creche; financiamento estudantil pago conforme a renda após o emprego</td></tr>
+      <tr><td>Moradia</td><td>Manter o Minha Casa, Minha Vida</td><td>Retomar o Casa Verde e Amarela, meta de 2,5 milhões de moradias</td></tr>
+      <tr><td>Meio ambiente</td><td>Plano de Transformação Ecológica; segurança na Amazônia</td><td>Reduzir desmatamento e queimadas; bioeconomia e mercado de carbono; regularização fundiária</td></tr>
+      <tr><td>Política externa</td><td>Não aparece como tema próprio no índice do plano; no debate, defendeu soberania sobre minerais críticos (CE-010)</td><td>Abertura comercial e adesão à OCDE; defesa e soberania</td></tr>
     </tbody>
   </table></div>
-  <p class="meta" style="margin-top:8px">Células vazias indicam ausência de registro, não ausência de proposta. A simetria não é fabricada.</p>
+  <p class="meta" style="margin-top:8px">Resumo dos planos feito por Mixvale e Exame (22/10) e pelo índice de temas do TSE. Para o texto exato de cada proposta, use os PDFs oficiais.</p>
 </section>
 
 <!-- ============ ASSUNTOS ============ -->
@@ -472,6 +482,30 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
   </div>
   <div class="grid g2" id="fichas"></div>
 
+  <div class="tier"><h2>Replay Investigativo · debate da Globo</h2><span class="n">23/10 · 21h20</span></div>
+  <div class="tbl"><table style="min-width:560px">
+    <thead><tr><th>Bloco</th><th>Temas</th><th>O que aconteceu</th></tr></thead>
+    <tbody>
+      <tr><td>1º</td><td>Perguntas sobre as cinco regiões: infraestrutura, salário mínimo, transporte gratuito, Norte e Nordeste</td><td>Flávio citou 11 mil obras paradas (Lupa: falta contexto) e prometeu ferrovias. Lula defendeu o Novo PAC e a Transnordestina. No Norte, Lula citou a falta de oxigênio no Amazonas na pandemia. No Nordeste, Flávio disse que o pai concluiu a transposição do São Francisco (Lupa: exagerado)</td></tr>
+      <tr><td>2º</td><td>Bolsa Família, SUS, autonomia do Banco Central, endividamento</td><td>Momento mais tenso: Lula chamou Flávio de "miliciano"; Flávio pediu desculpas por ter usado "nove dedos" sobre Lula. Flávio propôs comprar dívidas de inadimplentes; Lula disse que o Desenrola 3 já faz isso. Flávio defendeu a autonomia do BC e prometeu corrigir a Tabela SUS</td></tr>
+      <tr><td>3º</td><td colspan="2">Nenhuma fonte consultada descreveu o terceiro bloco</td></tr>
+    </tbody>
+  </table></div>
+  <p class="meta" style="margin-top:8px">Fonte: <a href="https://exame.com/brasil/debate-da-globo-com-menos-ataques-lula-e-flavio-discutem-propostas-e-disputam-legado/">Exame, 23/10</a>. Falas parafraseadas, exceto expressões entre aspas.</p>
+
+  <div class="tier"><h2>Debate da Band · placar das checagens</h2><span class="n">Lupa · 18/10</span></div>
+  <div class="tbl"><table style="min-width:520px">
+    <thead><tr><th>Classificação</th><th class="t-l">Lula (17 frases)</th><th class="t-f">Flávio (23 frases)</th></tr></thead>
+    <tbody>
+      <tr><td><span class="st ok">Verdadeiro</span></td><td class="n">9</td><td class="n">2</td></tr>
+      <tr><td><span class="st warn">Falta contexto</span></td><td class="n">2</td><td class="n">5</td></tr>
+      <tr><td><span class="st warn">Exagerado / subestimado</span></td><td class="n">3</td><td class="n">5</td></tr>
+      <tr><td><span class="st warn">Insustentável</span></td><td class="n">1</td><td class="n">3</td></tr>
+      <tr><td><span class="st bad">Falso</span></td><td class="n">2</td><td class="n">8</td></tr>
+    </tbody>
+  </table></div>
+  <p class="meta" style="margin-top:8px">Fonte: <a href="https://www.agencialupa.org/checagem/2026/10/18/ao-vivo-checagem-do-debate-entre-lula-e-flavio-bolsonaro-na-band/">Agência Lupa, 18/10</a>.</p>
+
   <div class="tier"><h2>Debate da Globo · placar das checagens</h2><span class="n">Lupa · 23/10</span></div>
   <div class="tbl"><table style="min-width:520px">
     <thead><tr><th>Classificação</th><th class="t-l">Lula (10 frases)</th><th class="t-f">Flávio (15 frases)</th></tr></thead>
@@ -482,27 +516,26 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
       <tr><td><span class="st bad">Falso</span></td><td class="n">2</td><td class="n">4</td></tr>
     </tbody>
   </table></div>
-  <p class="meta" style="margin-top:8px">A Lupa escolhe quais frases checar. O placar não mede a honestidade geral de nenhum dos dois.</p>
+  <p class="meta" style="margin-top:8px">Fonte: <a href="https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/">Agência Lupa, 23/10</a>. A Lupa escolhe quais frases checar. Os placares não medem a honestidade geral de nenhum dos dois.</p>
 
   <div class="tier"><h2>Painel de pendências</h2></div>
   <ul class="pend">
-    <li>Consolidar a cronologia de blocos do debate da Globo (23/10)</li>
-    <li>Teor exato da fala de Lula sobre o PIB na Band (CE-004)</li>
     <li>Repercussão digital do debate da Globo (ainda não publicada)</li>
-    <li>Confirmar se o debate do pool SBT (15/10) foi realizado</li>
-    <li>Ler os programas de governo registrados no TSE</li>
-    <li>Datafolha 20–22/10 por região: confirmar amostra e registro na fonte original</li>
+    <li>3º bloco do debate da Globo: nenhuma fonte descreveu</li>
+    <li>Datafolha 20–22/10 por região: só uma fonte (Blog Cenário), com amostra e datas inconsistentes</li>
     <li>Número de registro do Datafolha de 08/10: fontes divergem (BR-0949 e BR-02949)</li>
-    <li>Decisões do TSE sobre as ações CE-019 a CE-022 e resposta da Meta no caso Nikolas (CE-023)</li>
-    <li>Impulsionamento de Lula: fontes divergem (R$ 2,69 mi em 7/10 no Jornal de Brasília; R$ 2,59 mi em 23/10 na Agência Cenarium)</li>
-    <li>Alcance real (pessoas únicas) nas plataformas: nenhuma fonte divulgou</li>
+    <li>Julgamento de mérito das ações CE-019 a CE-022 e resposta da Meta no caso Nikolas (CE-023)</li>
+    <li>Impulsionamento de Lula: fontes divergem (R$ 2,69 mi em 7/10 no Jornal de Brasília; R$ 2,59 mi em 23/10 na Agência Cenarium, só Facebook)</li>
+    <li>Alcance real (pessoas únicas) e sentimento ambíguo: nenhuma fonte divulgou</li>
     <li>Veritá: as rodadas de 21/10 e 23/10 informam a mesma amostra (15.554) com campos sobrepostos e registros diferentes; método não divulgado nas rodadas de 06/10 e 21/10</li>
   </ul>
+  <p class="meta" style="margin-top:8px">Resolvidas nesta edição: blocos 1 e 2 do debate da Globo, fala de Lula sobre o PIB (CE-004), cancelamento do debate do SBT, leitura dos programas de governo, margens regionais do Datafolha de 13–15/10, decisão preliminar do TSE no caso das mensagens (CE-019).</p>
 
   <div class="tier"><h2>Histórico de correções</h2></div>
   <ul class="pend corr">
     <li>24/10, 00h30 · CE-008: de "Em apuração" para "Falso", após conclusão da checagem da Lupa</li>
     <li>24/10, 00h30 · Termômetro Digital, Radar de Viralização, Mapa das Bolhas e Brasil por Região: de "Indisponível" para dados medidos por terceiros</li>
+    <li>24/10, 01h10 · CE-004: de "Erro apontado · teor pendente" para "Falso". CE-019: pedido de urgência negado pelo TSE. Debate do SBT: de "não confirmado" para "cancelado". Termômetro: seguidores e pico de Flávio. Comparador preenchido com os planos do TSE. Fontes das fichas agora com link</li>
     <li>24/10, 00h50 · Termômetro: neutro calculado a partir dos dados publicados e dados da Datrix. Linha da Meta reescrita para deixar claro quem fica em desvantagem; caso Nikolas (CE-023). Pesquisas: incluídas três rodadas do Instituto Veritá. Termômetro: temas detalhados com contagens; "Diferenças entre plataformas", "Relevância e alcance" e "Publicidade paga ou coordenação" preenchidos; fichas CE-020 a CE-022</li>
   </ul>
 </section>
@@ -599,13 +632,13 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
   <div class="tbl"><table>
     <thead><tr><th>Região</th><th class="t-f">Flávio 13–15/10</th><th class="t-l">Lula 13–15/10</th><th class="t-f">Flávio 20–22/10</th><th class="t-l">Lula 20–22/10</th><th>Variação da diferença</th></tr></thead>
     <tbody>
-      <tr><td>Nordeste</td><td class="n">34%</td><td class="n">66%</td><td class="n">32%</td><td class="n">68%</td><td>Lula +32 → +36</td></tr>
-      <tr><td>Sudeste</td><td class="n">56%</td><td class="n">44%</td><td class="n">56%</td><td class="n">44%</td><td>Flávio +12, estável</td></tr>
-      <tr><td>Sul</td><td class="n">62%</td><td class="n">38%</td><td class="n">64%</td><td class="n">36%</td><td>Flávio +24 → +28</td></tr>
-      <tr><td>Norte e Centro-Oeste</td><td class="n">58%</td><td class="n">42%</td><td class="n">56%</td><td class="n">44%</td><td>Flávio +16 → +12</td></tr>
+      <tr><td>Nordeste (±4)</td><td class="n">34%</td><td class="n">66%</td><td class="n">32%</td><td class="n">68%</td><td>Lula +32 → +36</td></tr>
+      <tr><td>Sudeste (±3)</td><td class="n">56%</td><td class="n">44%</td><td class="n">56%</td><td class="n">44%</td><td>Flávio +12, estável</td></tr>
+      <tr><td>Sul (±5)</td><td class="n">62%</td><td class="n">38%</td><td class="n">64%</td><td class="n">36%</td><td>Flávio +24 → +28</td></tr>
+      <tr><td>Norte e Centro-Oeste (±5)</td><td class="n">58%</td><td class="n">42%</td><td class="n">56%</td><td class="n">44%</td><td>Flávio +16 → +12</td></tr>
     </tbody>
   </table></div>
-  <p class="meta" style="margin-top:8px">As fontes não informam margem de erro por região, que é maior que os ±2 p.p. nacionais. Por isso, variações de 2 a 4 pontos podem ser apenas oscilação. Na rodada anterior (6–7/10), Lula tinha 63% no Nordeste e Flávio, 61% no Norte e Centro-Oeste.</p>
+  <p class="meta" style="margin-top:8px">Margens por região (rodada de 13–15/10, segundo Brasil 61) entre parênteses, maiores que os ±2 p.p. nacionais. Nessa rodada, Lula tinha 54% nas regiões metropolitanas e Flávio 54% no interior. Por isso, variações de 2 a 4 pontos podem ser apenas oscilação. Na rodada anterior (6–7/10), Lula tinha 63% no Nordeste e Flávio, 61% no Norte e Centro-Oeste.</p>
   <p class="lv-p">13–15/10: O Povo, registro BR-00466/2026. 20–22/10: Blog Cenário, que cita registro BR-09709/2026, mas informa amostra de 2.154 entrevistas e data de campo em setembro, em conflito com a CNN Brasil (2.520 entrevistas, 20 a 22/10). Os percentuais regionais estão marcados como pendentes de confirmação na fonte original.</p>
 
   <div class="tier"><h2>Checkpoint</h2><span class="n">resumo copiável</span></div>
@@ -617,33 +650,51 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
 
 <footer>
   <p><b>Regras desta Central:</b> nenhum número é inventado ou estimado; dado ausente aparece como indisponível, nunca como zero; repercussão não é intenção de voto.</p>
-  <p class="meta">Fontes principais desta edição</p>
+  <p class="meta">Fontes desta edição</p>
   <ul>
-    <li>CartaCapital — totalização do 1º turno (05/10)</li>
-    <li>CNN Brasil — Datafolha 08/10 e 22/10</li>
-    <li>Tribuna de Jundiaí — Datafolha 15/10 e 22/10</li>
-    <li>Metrópoles, Exame — Quaest 21/10</li>
-    <li>TVT News — Quaest 14/10, BTG/Nexus</li>
-    <li>Gazeta do Povo — Real Time Big Data 23/10</li>
-    <li>Agência Brasil — debate da Band (18/10)</li>
-    <li>Agência Lupa — checagens Band e Globo</li>
-    <li>Aos Fatos — checagens 23/10</li>
-    <li>Poder360 — checagem no debate da Globo; interações (Bites)</li>
-    <li>Tribuna do Planalto — menções e sentimento (Brandwatch/FGV)</li>
-    <li>InfoMoney — Índice de Popularidade Digital (Quaest); Ativaweb</li>
-    <li>Estado de Minas — AP Exata</li>
-    <li>O Povo, Blog Cenário — Datafolha por região</li>
-    <li>Gazeta do Povo — Palver 21/10</li>
-    <li>Times Brasil, Diário do País, A Crítica — Veritá</li>
-    <li>CNN Brasil — ações no TSE (22/09 e 20/10)</li>
-    <li>Mobile Time — perfis por plataforma (21/10)</li>
-    <li>Metro 1 — DSC Lab, Instagram</li>
-    <li>ac24horas — Bites, seguidores por plataforma</li>
-    <li>Agência Cenarium, Jornal de Brasília — impulsionamento (DivulgaCand)</li>
-    <li>Estado de Minas — NetLab/UFRJ, preço dos anúncios na Meta</li>
-    <li>Times Brasil, Congresso em Foco — ações no TSE (08/10 e 21/10)</li>
-    <li>Brasil 247, Agenda do Poder (Folha) — caso Nikolas e Meta</li>
-    <li>Exame, Correio Braziliense — sentimento nas redes (Datrix)</li>
+    <li><a href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/propostas-de-governo-dos-candidatos-ao-cargo-de-presidente-da-republica-eleicoes-2026-segundo-turno" target="_blank" rel="noopener">TSE — planos de governo do 2º turno</a></li>
+    <li><a href="https://www.cartacapital.com.br/politica/tse-encerra-apuracao-do-1o-turno/" target="_blank" rel="noopener">CartaCapital — totalização do 1º turno pelo TSE</a></li>
+    <li><a href="https://www.cnnbrasil.com.br/eleicoes/datafolha-flavio-e-lula-empatam-em-50-de-votos-validos-no-2o-turno/" target="_blank" rel="noopener">CNN Brasil — Datafolha 22/10</a></li>
+    <li><a href="https://www.cnnbrasil.com.br/eleicoes/datafolha-flavio-tem-52-dos-votos-validos-lula-48/" target="_blank" rel="noopener">CNN Brasil — Datafolha 08/10</a></li>
+    <li><a href="https://tribunadejundiai.com.br/politica/eleicoes-2026/datafolha-lula-flavio-bolsonaro-empate-segundo-turno-2026/" target="_blank" rel="noopener">Tribuna de Jundiaí — Datafolha</a></li>
+    <li><a href="https://www.metropoles.com/brasil/quaest-rejeicao-de-flavio-bolsonaro-e-de-52-e-a-de-lula-recua-a-47" target="_blank" rel="noopener">Metrópoles — Quaest 21/10</a></li>
+    <li><a href="https://exame.com/brasil/pesquisa-para-presidente-quaest-flavio-bolsonaro-tem-45-e-lula-44-a-4-dias-do-2o-turno/" target="_blank" rel="noopener">Exame — Quaest 21/10</a></li>
+    <li><a href="https://tvtnews.com.br/primeira-pesquisa-quaest-presidente-2-turn14-10/" target="_blank" rel="noopener">TVT News — Quaest 14/10 e BTG/Nexus</a></li>
+    <li><a href="https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/real-time-big-data-presidente-outubro-2026-segundo-turno-2/" target="_blank" rel="noopener">Gazeta do Povo — Real Time Big Data 23/10</a></li>
+    <li><a href="https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/palver-presidente-outubro-2026-segundo-turno/" target="_blank" rel="noopener">Gazeta do Povo — Palver 21/10</a></li>
+    <li><a href="https://www.diariodopais.com.br/noticia/pesquisa-verita-aponta-flavio-bolsonaro-a-frente-de-lula-51-3-a-48-7-nos-votos-validos" target="_blank" rel="noopener">Diário do País — Veritá 23/10</a></li>
+    <li><a href="https://timesbrasil.com.br/eleicoes-2026/decisao-2026-flavio-tem-507-e-lula-493-dos-votos-validos-mostra-pesquisa-verita/" target="_blank" rel="noopener">Times Brasil — Veritá 21/10</a></li>
+    <li><a href="https://acritica.net/eleicoes-2026/pesquisa-verita-da-5156-a-flavio-bolsonaro-e-4844-a-lula-no-2o-turno/" target="_blank" rel="noopener">A Crítica — Veritá 06/10</a></li>
+    <li><a href="https://www.opovo.com.br/noticias/politica/eleicoes/2026/10/16/datafolha-lula-abre-32-pontos-no-nordeste-flavio-lidera-no-sul.html" target="_blank" rel="noopener">O Povo — Datafolha por região</a></li>
+    <li><a href="https://brasil61.com/n/datafolha-flavio-bolsonaro-lidera-no-sul-sudeste-e-interior-lula-tem-vantagem-no-nordeste-e-nas-regioes-metropolitanas-bras2617297" target="_blank" rel="noopener">Brasil 61 — Datafolha, margens regionais</a></li>
+    <li><a href="https://blogcenario.com.br/2026/10/23/datafolha-lula-tem-68-dos-votos-validos-no-nordeste-flavio-lidera-nas-demais-regioes" target="_blank" rel="noopener">Blog Cenário — Datafolha por região 22/10</a></li>
+    <li><a href="https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/lula-e-flavio-fazem-primeiro-debate-das-eleicoes-na-band" target="_blank" rel="noopener">Agência Brasil — debate da Band</a></li>
+    <li><a href="https://exame.com/brasil/debate-da-globo-com-menos-ataques-lula-e-flavio-discutem-propostas-e-disputam-legado/" target="_blank" rel="noopener">Exame — debate da Globo</a></li>
+    <li><a href="https://www.gazetadopovo.com.br/eleicoes/2026/debates-presidente-segundo-turno/" target="_blank" rel="noopener">Gazeta do Povo — debates do 2º turno</a></li>
+    <li><a href="https://www.agencialupa.org/checagem/2026/10/18/ao-vivo-checagem-do-debate-entre-lula-e-flavio-bolsonaro-na-band/" target="_blank" rel="noopener">Agência Lupa — checagem da Band</a></li>
+    <li><a href="https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/" target="_blank" rel="noopener">Agência Lupa — checagem da Globo</a></li>
+    <li><a href="https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/" target="_blank" rel="noopener">Aos Fatos — checagens 23/10</a></li>
+    <li><a href="https://www.poder360.com.br/poder-eleicoes-2026/lula-tem-5-vezes-mais-interacoes-nas-redes-que-flavio-apos-debate/" target="_blank" rel="noopener">Poder360 — interações (Bites)</a></li>
+    <li><a href="https://tribunadoplanalto.com.br/debate-gera-237-milhoes-de-mencoes-nas-redes-com-lula-e-flavio-empatados-em-volume/" target="_blank" rel="noopener">Tribuna do Planalto — menções (Brandwatch/FGV)</a></li>
+    <li><a href="https://www.infomoney.com.br/politica/quaest-testa-se-debate-e-reacao-digital-de-lula-mexeram-na-disputa-com-flavio/" target="_blank" rel="noopener">InfoMoney — Quaest IPD e Ativaweb</a></li>
+    <li><a href="https://www.diariodocentrodomundo.com.br/lula-amplia-vantagem-sobre-flavio-em-popularidade-digital-apos-debate-da-band" target="_blank" rel="noopener">Diário do Centro do Mundo — Quaest IPD 19/10</a></li>
+    <li><a href="https://agorarn.com.br/politica/quem-venceu-o-debate-lula-flavio/" target="_blank" rel="noopener">Agora RN — Ativaweb, seguidores</a></li>
+    <li><a href="https://www.em.com.br/politica/2026/10/7523344-debate-entre-lula-e-flavio-bolsonaro-agitou-redes-mas-sem-impacto-para-campanha.html" target="_blank" rel="noopener">Estado de Minas — AP Exata</a></li>
+    <li><a href="https://exame.com/brasil/apos-debate-da-band-eleicao-entre-flavio-e-lula-tambem-esta-empatada-nas-redes-diz-ceo-da-datrix/" target="_blank" rel="noopener">Exame — Datrix</a></li>
+    <li><a href="https://www.mobiletime.com.br/noticias/21/10/2026/eleicoes-2026-digital/" target="_blank" rel="noopener">Mobile Time — perfis por plataforma</a></li>
+    <li><a href="https://www.metro1.com.br/noticias/eleicoes-2026/190023,engajamento-de-lula-no-instagram-chega-a-79-milhoes-por-dia-no-segundo-turno" target="_blank" rel="noopener">Metro 1 — DSC Lab, Instagram</a></li>
+    <li><a href="https://ac24horas.com/2026/10/09/flavio-ganha-17-milhao-de-seguidores-apos-1o-turno-lula-958-mil/" target="_blank" rel="noopener">ac24horas — Bites, seguidores</a></li>
+    <li><a href="https://agenciacenarium.com.br/gastos-com-impulsionamento-digital-de-flavio-superam-os-de-lula-em-r-15-milhoes/" target="_blank" rel="noopener">Agência Cenarium — impulsionamento</a></li>
+    <li><a href="https://jornaldebrasilia.com.br/noticias/politica-e-poder/flavio-declara-r-9-milhoes-em-impulsionamento-e-supera-lula/" target="_blank" rel="noopener">Jornal de Brasília — impulsionamento</a></li>
+    <li><a href="https://www.em.com.br/politica/2026/10/7526431-meta-cobrou-ate-43-mais-de-lula-do-que-de-flavio-bolsonaro.html" target="_blank" rel="noopener">Estado de Minas — NetLab/UFRJ</a></li>
+    <li><a href="https://www.cnnbrasil.com.br/eleicoes/tse-nega-pedido-de-flavio-para-suspender-mensagens-do-governo-lula/" target="_blank" rel="noopener">CNN Brasil — TSE nega pedido de Flávio</a></li>
+    <li><a href="https://www.cnnbrasil.com.br/eleicoes/tse-acata-pedido-de-campanha-de-lula-e-abre-acao-contra-flavio-entenda/" target="_blank" rel="noopener">CNN Brasil — ação contra Flávio</a></li>
+    <li><a href="https://timesbrasil.com.br/eleicoes-2026/flavio-denuncia-ao-tse-rede-de-15-mil-perfis-por-fake-news/" target="_blank" rel="noopener">Times Brasil — ação de Flávio</a></li>
+    <li><a href="https://www.congressoemfoco.com.br/noticia/123497/campanha-de-lula-pede-cassacao-da-chapa-de-flavio-por-atuacao-da-meta" target="_blank" rel="noopener">Congresso em Foco — ação sobre a Meta</a></li>
+    <li><a href="https://www.brasil247.com/brasil/tse-da-12-horas-para-meta-explicar-alcance-de-nikolas-ferreira-no-instagram/" target="_blank" rel="noopener">Brasil 247 — TSE e Meta, caso Nikolas</a></li>
+    <li><a href="https://agendadopoder.com.br/videos-de-nikolas-no-instagram-superam-audiencia-de-estrelas-pop-e-entidades-brasileiras-denunciam-meta-ao-mpe/" target="_blank" rel="noopener">Agenda do Poder — análise da Folha</a></li>
+    <li><a href="https://www.mixvale.com.br/2026/10/22/planos-de-governo-de-lula-e-flavio-bolsonaro-no-tse-detalham-regras-para-clt-mei-inss-e-moradia-ate-2030/" target="_blank" rel="noopener">Mixvale — planos de governo</a></li>
+    <li><a href="https://exame.com/brasil/eleicoes-2026-veja-os-planos-de-economia-de-lula-e-flavio-bolsonaro/" target="_blank" rel="noopener">Exame — planos para a economia</a></li>
   </ul>
 </footer>
 </div>
@@ -656,8 +707,8 @@ const FICHAS=[
   aconteceu:"Sim. Registrada pela Lupa no debate.",verdade:"Falso. O valor corresponde às viagens de toda a estrutura do governo federal de 2023 a 2025.",st:["bad","Falso"],sig:"Atribui um gasto coletivo a duas pessoas.",como:"Checagem da Lupa, que já havia desmentido a mesma afirmação em setembro.",src:["Agência Lupa, 18/10/2026","Lupa, newsletter 23/10/2026"]},
  {id:"CE-003",who:"Flávio Bolsonaro",tag:["flavio"],date:"18/10/2026",topic:"Segurança pública",ctx:"Debate da Band",txt:"Afirmou que Lula liberou armas para traficantes.",lit:false,
   aconteceu:"Sim. Registrada pela Lupa.",verdade:"Falso, segundo a Lupa: o presidente não liberou armas para traficantes.",st:["bad","Falso"],sig:"Acusação de que a política de armas do governo favoreceu o crime.",como:"Checagem da Lupa durante o debate.",src:["Agência Lupa, 18/10/2026"]},
- {id:"CE-004",who:"Lula",tag:["lula","pendente"],date:"18/10/2026",topic:"Economia",ctx:"Debate da Band",txt:"Fala sobre o PIB.",lit:false,
-  aconteceu:"Sim. Registrada pela Lupa.",verdade:"A Lupa aponta erro, e diz que Lula voltou a errar no tema. Teor exato não consolidado aqui.",st:["warn","Erro apontado · teor pendente"],sig:"Uso de dado econômico para defender o governo.",como:"Título da checagem da Lupa. Ficha incompleta.",src:["Agência Lupa, 18/10/2026"]},
+ {id:"CE-004",who:"Lula",tag:["lula"],date:"18/10/2026",topic:"Economia",ctx:"Debate da Band",txt:"Disse que o Brasil só voltou a crescer acima de 3% depois que ele reassumiu a Presidência.",lit:false,
+  aconteceu:"Sim. Registrada pela Lupa. Ele repetiu a afirmação no debate da Globo (CE-011).",verdade:"Falso. O PIB cresceu 3,9% em 2011, 3,0% em 2013, 4,8% em 2021 e 3,0% em 2022.",st:["bad","Falso"],sig:"Apresenta o crescimento atual como inédito em mais de uma década.",como:"Checagem da Lupa com dados do IBGE.",src:["Agência Lupa, 18/10/2026"],rev:"24/10: de \"Erro apontado · teor pendente\" para \"Falso\", com o teor da fala."},
  {id:"CE-005",who:"Lula",tag:["lula"],date:"18/10/2026",topic:"Economia",ctx:"Debate da Band",txt:"Comparou o poder de compra do salário mínimo.",lit:false,
   aconteceu:"Sim. Registrada pela Lupa.",verdade:"Exagerado, segundo a Lupa.",st:["warn","Exagerado"],sig:"Argumento de melhora de renda no governo.",como:"Checagem da Lupa durante o debate.",src:["Agência Lupa, 18/10/2026"]},
  {id:"CE-006",who:"Boato sobre Lula",tag:["boato"],date:"23/10/2026",topic:"Desinformação",ctx:"Redes sociais, antes do debate da Globo",txt:"Conteúdo dizia que Lula passou mal e não iria ao debate da Globo.",lit:false,
@@ -687,7 +738,7 @@ const FICHAS=[
  {id:"CE-018",who:"Flávio Bolsonaro",tag:["flavio"],date:"23/10/2026",topic:"Endividamento",ctx:"Debate da Globo",txt:"Disse que mais de 80 milhões de brasileiros estão com contas atrasadas.",lit:false,
   aconteceu:"Sim. Registrada pela Lupa.",verdade:"Verdadeiro. A Serasa indica 83,9 milhões de inadimplentes em agosto de 2026.",st:["ok","Verdadeiro"],sig:"Aponta endividamento das famílias.",como:"Checagem da Lupa com dados da Serasa.",src:["Agência Lupa, 23/10/2026"]},
  {id:"CE-019",who:"Campanha de Flávio",tag:["flavio","pendente"],date:"20/10/2026",topic:"Justiça Eleitoral",ctx:"Ação no TSE",txt:"Pede a cassação da chapa Lula–Alckmin por abuso de poder, alegando uso de dados oficiais para enviar mensagens de WhatsApp sobre programas do governo durante a campanha.",lit:false,
-  aconteceu:"Sim. Ação protocolada e distribuída ao corregedor-geral, ministro Ricardo Villas Bôas Cueva.",verdade:"Não determinado. É uma acusação em julgamento, não um fato comprovado.",st:["warn","Sem decisão"],sig:"Questiona se a comunicação institucional do governo favoreceu o candidato.",como:"Reportagem da CNN Brasil. A fonte não traz resposta do governo ou da campanha de Lula.",src:["CNN Brasil, 20/10/2026"]},
+  aconteceu:"Sim. Ação protocolada e distribuída ao corregedor-geral, ministro Ricardo Villas Bôas Cueva.",verdade:"Não determinado no mérito. Em 22/10, o corregedor negou o pedido de suspender as mensagens: em análise preliminar, viu conteúdo informativo, sem pedido de voto, e disse que suspender tudo poderia interromper serviços públicos.",st:["warn","Urgência negada · mérito pendente"],sig:"Questiona se a comunicação institucional do governo favoreceu o candidato.",como:"Reportagens da CNN Brasil sobre a ação e a decisão.",src:["CNN Brasil, 20/10/2026","CNN Brasil, 22/10/2026 (decisão)"],rev:"24/10: de \"Sem decisão\" para \"Urgência negada · mérito pendente\"."},
  {id:"CE-020",who:"Coligação de Lula",tag:["lula","pendente"],date:"22/09/2026",topic:"Coordenação nas redes",ctx:"Ação no TSE",txt:"Acusa Flávio, Alfredo Gaspar e Mario Frias de montar uma rede coordenada de perfis, com publicações em parceria (collabs), para ampliar o alcance sem transparência.",lit:false,
   aconteceu:"Sim. O TSE abriu a ação e mandou o Facebook preservar registros e dados dos administradores.",verdade:"Não determinado. Abrir a ação não é condenação. A campanha de Flávio diz que as parcerias são voluntárias e orgânicas.",st:["warn","Sem decisão de mérito"],sig:"Questiona se o alcance de Flávio nas redes foi organizado de forma irregular.",como:"Reportagem da CNN Brasil.",src:["CNN Brasil, 22/09/2026"]},
  {id:"CE-021",who:"Campanha de Flávio",tag:["flavio","pendente"],date:"08/10/2026",topic:"Coordenação nas redes",ctx:"Ação no TSE",txt:"Acusa Lula e Alckmin de se beneficiarem de uma rede de 1.525 perfis no Instagram que espalharia conteúdo falso contra Flávio, ligada ao programa Porta-Voz do Lula.",lit:false,
@@ -697,6 +748,22 @@ const FICHAS=[
  {id:"CE-023",who:"TSE e Meta",tag:["pendente"],date:"22/10/2026",topic:"Plataformas e alcance",ctx:"Pedido da campanha de Lula",txt:"O corregedor-geral eleitoral deu 12 horas para a Meta explicar como o algoritmo distribuiu os posts de Nikolas Ferreira, aliado de Flávio, sob multa de R$ 100 mil por hora de atraso.",lit:false,
   aconteceu:"Sim. Antes, em 15/10, o TSE já havia pedido à Meta as medidas aplicadas ao perfil dele. Sleeping Giants, Artigo 19 e CTRL+Z também acionaram o Ministério Público Eleitoral.",verdade:"Não determinado. O volume de visualizações é real, mas a causa não está provada. A Meta diz que o alcance depende do engajamento e nega viés político.",st:["warn","Em investigação"],sig:"Se confirmado, indicaria tratamento desigual das campanhas pela plataforma.",como:"Brasil 247 e Agenda do Poder, com dados da análise da Folha de S.Paulo.",src:["Brasil 247, 22/10/2026","Agenda do Poder / Folha, 17/10/2026"]}
 ];
+const SRCURL={
+ "CartaCapital, 05/10/2026":"https://www.cartacapital.com.br/politica/tse-encerra-apuracao-do-1o-turno/",
+ "Agência Lupa, 18/10/2026":"https://www.agencialupa.org/checagem/2026/10/18/ao-vivo-checagem-do-debate-entre-lula-e-flavio-bolsonaro-na-band/",
+ "Lupa, newsletter 23/10/2026":"https://agencialupa.substack.com/p/a-descoberta-da-checagem",
+ "Aos Fatos, 23/10/2026":"https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/",
+ "Agência Lupa, 23/10/2026":"https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+ "Agência Brasil, 18/10/2026":"https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/lula-e-flavio-fazem-primeiro-debate-das-eleicoes-na-band",
+ "CNN Brasil, 20/10/2026":"https://www.cnnbrasil.com.br/blogs/jussara-soares/eleicoes/flavio-vai-ao-tse-contra-lula-por-envio-de-mensagens-do-governo-no-whatsapp/",
+ "CNN Brasil, 22/10/2026 (decisão)":"https://www.cnnbrasil.com.br/eleicoes/tse-nega-pedido-de-flavio-para-suspender-mensagens-do-governo-lula/",
+ "CNN Brasil, 22/09/2026":"https://www.cnnbrasil.com.br/eleicoes/tse-acata-pedido-de-campanha-de-lula-e-abre-acao-contra-flavio-entenda/",
+ "Times Brasil, 08/10/2026":"https://timesbrasil.com.br/eleicoes-2026/flavio-denuncia-ao-tse-rede-de-15-mil-perfis-por-fake-news/",
+ "Congresso em Foco, 22/10/2026":"https://www.congressoemfoco.com.br/noticia/123497/campanha-de-lula-pede-cassacao-da-chapa-de-flavio-por-atuacao-da-meta",
+ "Estado de Minas, NetLab/UFRJ":"https://www.em.com.br/politica/2026/10/7526431-meta-cobrou-ate-43-mais-de-lula-do-que-de-flavio-bolsonaro.html",
+ "Brasil 247, 22/10/2026":"https://www.brasil247.com/brasil/tse-da-12-horas-para-meta-explicar-alcance-de-nikolas-ferreira-no-instagram/",
+ "Agenda do Poder / Folha, 17/10/2026":"https://agendadopoder.com.br/videos-de-nikolas-no-instagram-superam-audiencia-de-estrelas-pop-e-entidades-brasileiras-denunciam-meta-ao-mpe/"
+};
 const POLLS=[
  ["Veritá","06/10","26/09–02/10","40.500","—","Válidos","51,56","48,44","BR-01234/2026"],
  ["Datafolha","08/10","06–07/10","2.520","±2","Válidos","52","48","BR-0949/2026*"],
@@ -716,7 +783,7 @@ const POLLS=[
 const CRONO=[
  ["04/10","1º turno: Flávio 47,03%, Lula 45,16%"],["05/10","TSE conclui a totalização"],
  ["08/10","1ª Datafolha do 2º turno: Flávio 52% × Lula 48% (válidos)"],["13/10","BTG/Nexus: Flávio 52% × Lula 48% (válidos)"],
- ["14/10","1ª Quaest do 2º turno: Flávio 46% × Lula 44% (totais)"],["15/10","Datafolha: 51% × 49%. Debate do pool SBT previsto, realização não confirmada"],
+ ["14/10","1ª Quaest do 2º turno: Flávio 46% × Lula 44% (totais)"],["11/10","Debate da Record cancelado"],["15/10","Datafolha: 51% × 49%. Debate do pool SBT, RedeTV! e CNN Brasil cancelado"],
  ["18/10","Debate da Band: 2,37 milhões de menções nas redes, divididas quase igualmente"],["20/10","Campanha de Flávio aciona o TSE contra mensagens do governo no WhatsApp"],
  ["21/10","Quaest: rejeição de Lula cai para 47%. Palver: Flávio 50% × Lula 48% (totais)"],["22/10","Datafolha: empate em 50%"],
  ["23/10","Debate da Globo; Lupa checa 25 frases; fim da propaganda gratuita"],["25/10","Votação do 2º turno",1]
@@ -737,7 +804,7 @@ function renderFichas(filter="todos"){
       <div><dt>O conteúdo é verdadeiro?</dt><dd>${esc(f.verdade)}</dd></div>
       <div><dt>Como sabemos?</dt><dd>${esc(f.como)}</dd></div>
     </dl>
-    <div class="lv-p">Fontes:<ul>${f.src.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>Revisões: ${esc(f.rev||"nenhuma.")}</div>
+    <div class="lv-p">Fontes:<ul>${f.src.map(s=>`<li>${SRCURL[s]?`<a href="${SRCURL[s]}" target="_blank" rel="noopener">${esc(s)}</a>`:esc(s)}</li>`).join("")}</ul>Revisões: ${esc(f.rev||"nenhuma.")}</div>
   </article>`).join("");
 }
 renderFichas();
@@ -769,10 +836,15 @@ const THERMO={
    ["Saldo de sentimento · 5–11/10 → 12–18/10","−10,6 → −0,6","+17,2 → +4,9","ok","Datrix · saldo = % positivo − % negativo"],
    ["Saldo de Flávio com e sem o X · 16 a 19/10","—","+7,1 com o X; +16,5 fora do X","ok","Datrix · um perfil no X amplificava críticas a Flávio"],
    ["Interações em 24h","25,5 mi","5 mi","ok",BT],
-   ["Ganho de seguidores","+176 mil",NA,"warn",BT+" (sem dado de Flávio)"],
+   ["Novos seguidores no Instagram após o debate","178 mil","149 mil","ok","Quaest, via Folha"],
+   ["Novos seguidores na madrugada do debate","125 mil","97 mil","ok",AV],
+   ["Índice de Popularidade Digital · 19/10","83,3","76,6","ok","Quaest · 0 a 100, 175 variáveis em 7 redes"],
+   ["Índice de vantagem digital nos vídeos do debate","60,5%","39,5%","ok",AV+" · cinco critérios"],
    ["Visualizações de vídeos (madrugada)","65,7 mi","22,1 mi","ok",AV],
    ["Menções favoráveis, antes → depois","39,80% → 38,65%","40,09% → 37,93%","ok",AP],
-   ["Pico de menções","≈330 mil/h · dom 21h–22h","—","ok",BW+" (pico do debate, sem divisão por candidato)"],
+   ["Pico de menções do debate","≈330 mil por hora, dom 21h–22h · os dois somados",null,"warn",BW+" · nenhuma fonte separou o pico por candidato"],
+   ["Comentários nos posts dos candidatos no dia do debate","95% de ≈6 mi","≈5% (restante)","ok","Quaest, via Folha · mede volume, não sentimento"],
+   ["Interesse de busca no Google (Trends)","49, estável","6 → 15","ok","Quaest, via Folha · escala relativa de 0 a 100"],
    ["Referências ao debate nas publicações","288 mil","426 mil","ok",BT],
    ["Memes e cortes do debate","9.500 posts","7.000 posts","ok",BT],
    ["Tema · sigilo bancário","501 mil citações · desafio de Lula para Flávio abrir sigilos",null,"ok",BT+" (tema do debate, sem divisão por candidato)"],
@@ -832,7 +904,7 @@ document.addEventListener("click",e=>{if(!e.target.closest(".search"))res.hidden
 
 /* checkpoint */
 $("#ckpt").value=`CENTRAL ELEITORAL — CHECKPOINT
-Edição: 24/10/2026, 00h30 (2º turno em 25/10)
+Edição: 24/10/2026, 01h10 (2º turno em 25/10)
 
 ESTADO
 - 1º turno (TSE): Flávio 47,03% × Lula 45,16% (válidos)
