@@ -941,7 +941,7 @@ function lockedUntil(){try{return +localStorage.getItem("ce-upd")||0}catch(_){re
 function showLock(){const left=lockedUntil()-Date.now();if(left>0){updBtn.disabled=true;
   say("Atualização em andamento. Leva de 5 a 15 minutos; a página recarrega sozinha quando a nova edição for publicada.");
   setTimeout(()=>{updBtn.disabled=false;say("Se a página não mudou, a busca pode não ter encontrado novidades. Você pode tentar de novo.")},left);}}
-if(!window.claude){updBtn.hidden=true;say("Versão estática. A atualização automática só funciona na página aberta no claude.ai.");}
+if(!window.claude){updBtn.hidden=true;say("Esta página é atualizada automaticamente a cada 2 horas até 26/10. Veja o horário em Edição de, acima.");}
 else showLock();
 let mcpP=null;
 updBtn.addEventListener("click",async()=>{
