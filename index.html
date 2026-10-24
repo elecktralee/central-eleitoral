@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Central Eleitoral</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Literata:opsz,wght@7..72,400;7..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: revista investigativa — masthead + 5 abas; cada bloco é um "dossiê" com marca-texto amarelo para estado de verificação */
+:root{
+  --paper:#F3F5F3; --card:#FFFFFF; --ink:#14181B; --muted:#596267; --rule:#D3D8D5;
+  --mark:#F2C230; --mark-ink:#2E2400;
+  --lula:#B4232C; --lula-t:#9E1E27; --flavio:#1D4ED8; --flavio-t:#1A44BD;
+  --ok:#1D7048; --warn:#9A5800; --bad:#6A2C9C; --na:#6F767A;
+  --f-display:"Archivo",system-ui,sans-serif;
+  --f-body:"Literata",Georgia,"Times New Roman",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#101315; --card:#181C1F; --ink:#E6EAE8; --muted:#9BA4A8; --rule:#2C3336;
+  --mark:#D9AE2A; --mark-ink:#1E1800; --lula-t:#F07A82; --flavio-t:#8AA8FF;
+  --ok:#5CC48F; --warn:#E3A24A; --bad:#C08BEF; --na:#8E979B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#101315; --card:#181C1F; --ink:#E6EAE8; --muted:#9BA4A8; --rule:#2C3336;
+  --mark:#D9AE2A; --mark-ink:#1E1800; --lula-t:#F07A82; --flavio-t:#8AA8FF;
+  --ok:#5CC48F; --warn:#E3A24A; --bad:#C08BEF; --na:#8E979B; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:1180px;margin:0 auto}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.1}
+p{margin:0}
+a{color:inherit}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+
+/* masthead */
+.mast{display:grid;grid-template-columns:1fr auto;gap:12px 24px;align-items:end;padding-block:28px 14px;border-bottom:3px solid var(--ink)}
+.mast h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:900;font-stretch:72%;letter-spacing:-.01em;text-transform:uppercase}
+.mast .sub{font-family:var(--f-display);font-stretch:100%;font-weight:500;font-size:1.05rem;color:var(--muted);margin-top:4px}
+.mast .sub b{background:var(--mark);color:var(--mark-ink);padding:0 4px;font-weight:600}
+.edition{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);text-align:right;line-height:1.5}
+.edition strong{color:var(--ink);font-weight:500}
+.upd{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.upd .btn{background:var(--mark);color:var(--mark-ink)}
+.upd .btn[disabled]{opacity:.55;cursor:default}
+.upd .meta{max-width:62ch}
+.upd .meta.err{color:var(--warn)}
+@media (max-width:640px){.mast{grid-template-columns:1fr}.edition{text-align:left}}
+
+/* barra: nav + leitura fácil + busca */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding-block:10px}
+nav.sec{display:flex;gap:2px;flex-wrap:wrap}
+nav.sec a{font-family:var(--f-display);font-weight:700;font-stretch:85%;text-transform:uppercase;letter-spacing:.04em;font-size:.86rem;
+  text-decoration:none;padding:7px 11px;border-radius:2px;color:var(--muted)}
+nav.sec a:hover{color:var(--ink)}
+nav.sec a[aria-current="page"]{color:var(--ink);box-shadow:inset 0 -3px 0 var(--mark)}
+.lf{display:flex;align-items:center;gap:6px;font-family:var(--f-display);font-size:.8rem;margin-left:auto}
+.lf span{color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;font-stretch:85%}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.seg button{all:unset;cursor:pointer;padding:5px 10px;font-family:var(--f-display);font-size:.82rem;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.seg button:focus-visible{outline:2px solid var(--mark)}
+.search{position:relative;flex:1 1 220px;max-width:320px}
+.search input{width:100%;font:inherit;font-size:.9rem;padding:7px 10px;border:1px solid var(--rule);border-radius:3px;background:var(--card);color:var(--ink)}
+.results{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--card);border:1px solid var(--rule);border-radius:3px;max-height:320px;overflow:auto;z-index:6;box-shadow:0 8px 24px rgb(0 0 0 / .12)}
+.results button{all:unset;display:block;cursor:pointer;padding:8px 10px;border-bottom:1px solid var(--rule);font-size:.88rem;width:100%;box-sizing:border-box}
+.results button:hover,.results button:focus-visible{background:var(--paper)}
+.results small{display:block;color:var(--muted);font-family:var(--f-mono);font-size:.72rem}
+
+/* leitura fácil: níveis */
+body[data-level="simples"] .lv-d, body[data-level="simples"] .lv-p, body[data-level="detalhado"] .lv-p{display:none}
+.lv-p{border-top:1px dashed var(--rule);margin-top:10px;padding-top:10px;font-size:.85rem;color:var(--muted)}
+.lv-p ul{margin:4px 0 0;padding-left:18px}
+
+/* candidatos legenda */
+.duo{display:flex;gap:14px;flex-wrap:wrap;font-family:var(--f-display);font-weight:600;font-size:.85rem;margin-top:14px;color:var(--muted)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:baseline}
+.dl{background:var(--lula)} .df{background:var(--flavio)}
+.t-l{color:var(--lula-t)} .t-f{color:var(--flavio-t)}
+
+/* seções */
+section.view[hidden]{display:none}
+.tier{display:flex;align-items:baseline;gap:12px;margin:34px 0 14px}
+.tier h2{font-size:.85rem;font-stretch:90%;text-transform:uppercase;letter-spacing:.14em;font-weight:800}
+.tier::after{content:"";flex:1;border-top:1px solid var(--rule)}
+.tier .n{font-family:var(--f-mono);font-size:.75rem;color:var(--muted)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.block{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:20px;min-width:0;display:flex;flex-direction:column;gap:12px}
+.block.ess{border-top:4px solid var(--ink)}
+.bh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.bh h3{font-size:1.35rem;font-weight:800;font-stretch:80%}
+.bh .num{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);display:block;margin-bottom:3px}
+.block.sm .bh h3{font-size:1.12rem}
+.lede{font-size:.98rem}
+.meta{font-family:var(--f-mono);font-size:.74rem;color:var(--muted)}
+.go{all:unset;cursor:pointer;font-family:var(--f-display);font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;align-self:flex-start;margin-top:auto;border-bottom:2px solid var(--mark)}
+.go:hover{color:var(--muted)}
+
+/* estado */
+.st{font-family:var(--f-mono);font-size:.68rem;font-weight:500;text-transform:uppercase;letter-spacing:.06em;padding:2px 7px;border-radius:2px;white-space:nowrap;border:1px solid currentColor}
+.st.ok{color:var(--ok)} .st.warn{color:var(--warn)} .st.bad{color:var(--bad)} .st.na{color:var(--na);border-style:dashed}
+.st.hl{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+
+/* destaques */
+.items{display:flex;flex-direction:column;gap:12px;list-style:none;margin:0;padding:0}
+.items li{border-left:3px solid var(--rule);padding-left:12px}
+.items li h4{font-size:1.02rem;font-weight:700;font-stretch:90%;margin-bottom:3px}
+
+/* termômetro */
+.thermo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tcol{border:1px solid var(--rule);border-radius:3px;padding:10px}
+.tcol h4{font-size:.9rem;font-weight:700;margin-bottom:6px}
+.tcol.l{border-top:3px solid var(--lula)} .tcol.f{border-top:3px solid var(--flavio)}
+.ind{display:flex;justify-content:space-between;gap:8px;font-size:.82rem;padding:4px 0;border-bottom:1px dotted var(--rule)}
+.ind:last-child{border-bottom:0}
+.ind .v{font-family:var(--f-mono);color:var(--na);font-size:.74rem}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.chip{all:unset;cursor:pointer;font-family:var(--f-display);font-size:.78rem;font-weight:600;padding:4px 9px;border:1px solid var(--rule);border-radius:20px;color:var(--muted)}
+.chip[aria-pressed="true"]{border-color:var(--ink);color:var(--ink);background:var(--paper)}
+.notice{background:var(--paper);border-left:3px solid var(--mark);padding:10px 12px;font-size:.88rem}
+
+/* pesquisa: barra válidos */
+.vbar{display:flex;height:30px;border-radius:2px;overflow:hidden;font-family:var(--f-mono);font-size:.8rem;color:#fff}
+.vbar div{display:flex;align-items:center;padding:0 8px}
+.vbar .f{background:var(--flavio)} .vbar .l{background:var(--lula);justify-content:flex-end}
+.mid{position:relative}
+.mid::after{content:"";position:absolute;left:50%;top:-4px;bottom:-4px;border-left:2px dashed var(--ink);opacity:.5}
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font-family:var(--f-mono);font-size:11px}
+.chart .grid line{stroke:var(--rule)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-family:var(--f-display);font-size:.8rem;color:var(--muted)}
+
+/* tabelas */
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:3px}
+table{border-collapse:collapse;width:100%;font-size:.85rem;min-width:640px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--f-display);font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--paper)}
+td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+
+/* fichas */
+.ficha{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.ficha .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.fid{font-family:var(--f-mono);font-size:.74rem;background:var(--paper);border:1px solid var(--rule);padding:1px 6px;border-radius:2px}
+.who{font-family:var(--f-display);font-weight:700;font-size:.85rem}
+.ficha blockquote{margin:0;font-size:1rem;border-left:3px solid var(--rule);padding-left:10px}
+.ficha .para{font-family:var(--f-mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.six{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:6px 14px;font-size:.84rem;margin:0}
+.six div{min-width:0}
+.six dt{font-family:var(--f-display);font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.six dd{margin:0}
+.fstrip{display:flex;gap:6px;flex-wrap:wrap}
+
+/* candidatos */
+.cand{border-top:6px solid}
+.cand.l{border-top-color:var(--lula)} .cand.f{border-top-color:var(--flavio)}
+.cand h3{font-size:1.8rem;font-weight:900;font-stretch:75%}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.88rem;margin:0}
+.kv dt{font-family:var(--f-display);font-weight:700;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;padding-top:2px}
+.kv dd{margin:0;min-width:0}
+
+/* assunto */
+.know{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px;font-size:.86rem}
+.know div{background:var(--paper);padding:10px;border-radius:3px}
+.know b{display:block;font-family:var(--f-display);font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+
+/* linha do tempo */
+.tl{list-style:none;margin:0;padding:0;border-left:2px solid var(--rule)}
+.tl li{position:relative;padding:0 0 14px 18px}
+.tl li::before{content:"";position:absolute;left:-6px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--card);border:2px solid var(--ink)}
+.tl li.next::before{background:var(--mark);border-color:var(--mark)}
+.tl .d{font-family:var(--f-mono);font-size:.76rem;color:var(--muted)}
+
+.pend{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;font-size:.86rem}
+.pend li::before{content:"□ ";font-family:var(--f-mono);color:var(--warn)}
+.pend.corr li::before{content:"↻ ";color:var(--muted)}
+.tag{font-family:var(--f-mono);font-size:.66rem;color:var(--muted);border:1px solid var(--rule);padding:1px 5px;border-radius:2px;margin-left:6px;white-space:nowrap}
+.ckpt{width:100%;min-height:180px;font-family:var(--f-mono);font-size:.78rem;padding:10px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);color:var(--ink);resize:vertical}
+.btn{all:unset;cursor:pointer;font-family:var(--f-display);font-weight:700;font-size:.85rem;padding:8px 14px;background:var(--ink);color:var(--paper);border-radius:3px;align-self:flex-start}
+.btn:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);font-size:.82rem;color:var(--muted);display:grid;gap:8px}
+footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);font-size:.72rem}
+@media (max-width:520px){.thermo{grid-template-columns:1fr}.lf{margin-left:0}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<header class="mast">
+  <div>
+    <h1>Central Eleitoral</h1>
+    <p class="sub"><b>A eleição, explicada.</b> Presidência da República · 2º turno de 2026</p>
+    <div class="duo"><span><i class="dot dl"></i>Lula (PT)</span><span><i class="dot df"></i>Flávio Bolsonaro (PL)</span><span style="font-weight:400">Cores identificam candidatos. Não indicam aprovação, verdade ou falsidade.</span></div>
+  </div>
+  <div class="edition">Edição de <strong>sáb, 24/10/2026 · 00h30</strong><br>Votação: <strong>dom, 25/10</strong> · amanhã<br>Atualização sob demanda</div>
+  <div class="upd">
+    <button class="btn" id="upd" type="button">↻ Atualizar agora</button>
+    <p class="meta" id="updmsg" aria-live="polite">Busca as notícias, pesquisas e checagens mais recentes e republica esta página.</p>
+  </div>
+</header>
+
+<div class="bar">
+  <nav class="sec" aria-label="Seções">
+    <a href="#inicio" data-v="inicio">Início</a>
+    <a href="#candidatos" data-v="candidatos">Candidatos</a>
+    <a href="#assuntos" data-v="assuntos">Assuntos</a>
+    <a href="#verificacoes" data-v="verificacoes">Verificações</a>
+    <a href="#impacto" data-v="impacto">Impacto</a>
+  </nav>
+  <div class="search">
+    <label for="q" class="meta" style="position:absolute;left:-9999px">Buscar</label>
+    <input id="q" type="search" placeholder="Buscar: debate, rejeição, CE-003…" autocomplete="off">
+    <div class="results" id="res" hidden></div>
+  </div>
+  <div class="lf" role="group" aria-label="Leitura Fácil">
+    <span>Leitura Fácil</span>
+    <div class="seg" id="lvl">
+      <button type="button" data-l="simples">Simples</button>
+      <button type="button" data-l="detalhado" aria-pressed="true">Detalhado</button>
+      <button type="button" data-l="provas">Provas</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ INÍCIO ============ -->
+<section class="view" id="v-inicio" data-view="inicio">
+  <div class="tier"><h2>Essencial</h2><span class="n">01–04</span></div>
+  <div class="grid g2">
+
+    <article class="block ess" data-idx="Agora na Eleição: debate Globo, empate Datafolha, 2º turno domingo" data-to="inicio">
+      <div class="bh"><div><span class="num">01</span><h3>Agora na Eleição</h3></div><span class="st hl">3 destaques</span></div>
+      <ul class="items">
+        <li><h4>Último debate, na Globo: Lupa checou 25 frases</h4>
+          <p class="lede">Das 10 frases de Lula checadas, 2 eram falsas e 4 verdadeiras. Das 15 de Flávio, 4 eram falsas e 4 verdadeiras.</p>
+          <p class="lv-d">Os dois erraram sobre o "Tigrinho": Lula disse que as apostas foram criadas por Bolsonaro em 2022; Flávio chamou Lula de "pai do Tigrinho". A legalização veio em 2018, com Temer. <b>Atenção:</b> a contagem reflete as frases que a Lupa escolheu checar, não todas as falas.</p>
+          <p class="meta">23–24/10 · Agência Lupa · <span class="st ok">Checagem concluída</span></p></li>
+        <li><h4>Datafolha registra empate em 50% a 50%</h4>
+          <p class="lede">Nos votos válidos, os dois aparecem empatados. Na semana anterior, Flávio tinha 51% e Lula 49%.</p>
+          <p class="lv-d">A variação está dentro da margem de erro de 2 pontos. Outros institutos divergem: Real Time Big Data mostra Flávio com 52%; Vox mostra Lula com 50,6%. <b>Por que importa:</b> a disputa chega ao domingo sem favorito claro nas pesquisas.</p>
+          <p class="meta">22/10 · CNN Brasil · <span class="st ok">Confirmado</span></p></li>
+        <li><h4>Rejeição de Lula cai 6 pontos na Quaest</h4>
+          <p class="lede">Lula passou de 53% para 47% de rejeição em uma semana. Flávio foi de 54% para 52%.</p>
+          <p class="lv-d">A queda de Lula está fora da margem; a de Flávio é oscilação. <b>Falta saber:</b> o que explica a mudança. Nenhuma fonte consultada estabelece causa.</p>
+          <p class="meta">21/10 · Metrópoles, Exame · <span class="st ok">Confirmado</span></p></li>
+      </ul>
+    </article>
+
+    <article class="block ess" data-idx="Termômetro Digital: sentimento, menções, engajamento" data-to="impacto">
+      <div class="bh"><div><span class="num">02</span><h3>Termômetro Digital</h3></div><span class="st ok">Medido por terceiros</span></div>
+      <p class="meta">Após o debate da Band · 18–19/10</p>
+      <div class="thermo">
+        <div class="tcol l"><h4 class="t-l">Lula</h4>
+          <div class="ind"><span>Menções</span><span class="v mono" style="color:var(--ink)">1,17 mi</span></div>
+          <div class="ind"><span>Positivo / negativo</span><span class="v mono" style="color:var(--ink)">20% / 27%</span></div>
+          <div class="ind"><span>Interações (24h)</span><span class="v mono" style="color:var(--ink)">25,5 mi</span></div></div>
+        <div class="tcol f"><h4 class="t-f">Flávio Bolsonaro</h4>
+          <div class="ind"><span>Menções</span><span class="v mono" style="color:var(--ink)">1,2 mi</span></div>
+          <div class="ind"><span>Positivo / negativo</span><span class="v mono" style="color:var(--ink)">11% / 34%</span></div>
+          <div class="ind"><span>Interações (24h)</span><span class="v mono" style="color:var(--ink)">5 mi</span></div></div>
+      </div>
+      <p class="lede">Volume de menções empatado. Lula teve cerca de 5 vezes mais interações. Flávio teve mais menções negativas.</p>
+      <p class="notice">Menções e interações medem repercussão, não voto. Dados do debate da Globo (23/10) ainda não publicados.</p>
+      <p class="lv-p">Menções e sentimento: Brandwatch, análise de Lilian Carvalho (FGV/EAESP), via Tribuna do Planalto. Interações: Agência Bites, via Poder360.</p>
+      <button class="go" data-goto="impacto">Abrir Termômetro completo</button>
+    </article>
+
+    <article class="block ess" data-idx="Central dos Debates: Band 18/10, Globo 23/10" data-to="assuntos">
+      <div class="bh"><div><span class="num">03</span><h3>Central dos Debates</h3></div><span class="st ok">2 documentados</span></div>
+      <p class="meta">Interesse no Google pelo debate da Band foi o maior da série desde 2004 (Bites).</p>
+      <ul class="items">
+        <li><h4>Band · dom, 18/10 · 20h</h4>
+          <p class="lede">Primeiro confronto direto. Segurança pública, a relação de Flávio com os EUA e investigações sobre o filho de Lula dominaram.</p>
+          <p class="lv-d">Mediação de Adriana Araújo e Eduardo Oinegue. Flávio interrompeu Lula fora do tempo de fala e precisou de intervenção da mediação. A Lupa apontou erros dos dois (fichas CE-002 a CE-005).</p></li>
+        <li><h4>Globo · sex, 23/10 · 21h20</h4>
+          <p class="lede">Último debate, em três blocos, com checagem ao vivo. Economia, obras paradas, fome, juros e apostas on-line dominaram as falas checadas.</p>
+          <p class="lv-d">Mediação de César Tralli. A Lupa checou 25 frases (fichas CE-008 e CE-011 a CE-018). A cronologia de blocos ainda não foi consolidada.</p></li>
+      </ul>
+      <p class="lv-p">O debate do pool liderado pelo SBT, previsto para 15/10, não aparece como realizado nas fontes consultadas. A Agência Brasil chama o da Band de "primeiro debate". Situação: <b>não confirmada</b>.</p>
+      <button class="go" data-goto="verificacoes">Ver Replay Investigativo</button>
+    </article>
+
+    <article class="block ess" data-idx="Pesquisas Eleitorais: Datafolha, Quaest, votos válidos, rejeição" data-to="impacto">
+      <div class="bh"><div><span class="num">04</span><h3>Pesquisas Eleitorais</h3></div><span class="st ok">Datafolha 20–22/10</span></div>
+      <div>
+        <div class="legend" style="justify-content:space-between;margin-bottom:6px"><span class="t-f"><b>Flávio 50%</b></span><span class="meta">votos válidos</span><span class="t-l"><b>Lula 50%</b></span></div>
+        <div class="mid"><div class="vbar"><div class="f" style="width:50%">50</div><div class="l" style="width:50%">50</div></div></div>
+      </div>
+      <p class="lede">Empate. Em votos totais, Flávio tem 47% e Lula 46%.</p>
+      <p class="lv-d meta">2.520 entrevistas · margem ±2 p.p. · confiança 95% · 16 anos ou mais</p>
+      <p class="lv-p">Comparações só entre pesquisas do mesmo instituto e da mesma base (válidos ou totais). Quaest divulga votos totais; Datafolha e Real Time Big Data, válidos. Veja o Laboratório em Impacto.</p>
+      <button class="go" data-goto="impacto">Abrir Laboratório de pesquisas</button>
+    </article>
+  </div>
+
+  <div class="tier"><h2>Investigação</h2><span class="n">05–09</span></div>
+  <div class="grid g3">
+    <article class="block sm" data-idx="Fato ou Fake: checagens Lupa, Aos Fatos">
+      <div class="bh"><div><span class="num">05</span><h3>Fato ou Fake</h3></div><span class="st ok">19 fichas</span></div>
+      <p>Checagens publicadas por Lupa e Aos Fatos sobre falas dos dois candidatos e boatos sobre eles.</p>
+      <p class="lv-d meta">A Lupa já checou mais de 130 frases de Lula e Flávio na campanha.</p>
+      <button class="go" data-goto="verificacoes">Ver fichas</button>
+    </article>
+    <article class="block sm" data-idx="Radar de Viralização: boatos, picos">
+      <div class="bh"><div><span class="num">06</span><h3>Radar de Viralização</h3></div><span class="st ok">Medido</span></div>
+      <p>Na madrugada após o debate da Band, vídeos de Lula somaram 65,7 milhões de visualizações e os de Flávio, 22,1 milhões.</p>
+      <p class="lv-d">Temas que mais circularam (Bites, até 19/10): sigilo bancário (501 mil citações), Lulinha (400 mil), Ana Clara (303 mil). Cortes e memes: 9.500 posts sobre Lula, 7.000 sobre Flávio.</p>
+      <p class="lv-p">Visualizações: Ativaweb Datalab, via InfoMoney. Citações: Agência Bites, via Poder360. Métodos não detalhados pelas empresas. Viralização mede circulação, não apoio eleitoral.</p>
+      <button class="go" data-goto="impacto">Ver no Termômetro</button>
+      <button class="go" data-goto="verificacoes">Ver desinformação</button>
+    </article>
+    <article class="block sm" data-idx="Comparador de Propostas: segurança, soberania">
+      <div class="bh"><div><span class="num">07</span><h3>Comparador de Propostas</h3></div><span class="st warn">Parcial</span></div>
+      <p>Propostas ditas em debate, por assunto. Os programas registrados no TSE ainda não foram lidos nesta edição.</p>
+      <button class="go" data-goto="candidatos">Comparar</button>
+    </article>
+    <article class="block sm" data-idx="Mapa das Bolhas: comunidades digitais">
+      <div class="bh"><div><span class="num">08</span><h3>Mapa das Bolhas</h3></div><span class="st warn">Parcial</span></div>
+      <p>Após a Band, cada lado das redes destacou momentos diferentes do mesmo debate.</p>
+      <div class="know">
+        <div><b class="t-f">Perfis de direita</b>Defesa de Lula sobre saída de presos; frase "malandro carioca"</div>
+        <div><b class="t-l">Perfis de esquerda</b>Resposta irônica de Lula sobre apoio de detentos; cobrança pela abertura de sigilos</div>
+      </div>
+      <p class="lv-p">AP Exata, via Estado de Minas. Divisão por plataforma: indisponível. Classificar perfis como "direita" e "esquerda" é critério da empresa, não detalhado.</p>
+    </article>
+    <article class="block sm" data-idx="Narrativas em Disputa: rejeição, segurança, soberania">
+      <div class="bh"><div><span class="num">09</span><h3>Narrativas em Disputa</h3></div><span class="st warn">Interpretação</span></div>
+      <p>A imprensa descreve o 2º turno como uma "batalha da rejeição": quem consegue ser menos recusado vence.</p>
+      <p class="lv-d">Temas recorrentes nos debates: segurança pública e facções (Flávio); soberania e relação com os EUA (Lula); gastos do governo e investigações sobre familiares (Flávio sobre Lula).</p>
+      <p class="lv-p">Leitura da Gazeta do Povo (23/10) e cobertura da Agência Brasil (18/10). É interpretação jornalística, não evidência de estratégia.</p>
+      <button class="go" data-goto="assuntos">Ver assuntos</button>
+    </article>
+  </div>
+
+  <div class="tier"><h2>Aprofundamento</h2><span class="n">10–12</span></div>
+  <div class="grid g3">
+    <article class="block sm" data-idx="Brasil por Região: pesquisas regionais">
+      <div class="bh"><div><span class="num">10</span><h3>Brasil por Região</h3></div><span class="st ok">Datafolha</span></div>
+      <p>Lula lidera só no Nordeste. Flávio lidera no Sul, Sudeste, Norte e Centro-Oeste.</p>
+      <div style="display:grid;gap:6px">
+        <div class="meta">Nordeste</div><div class="vbar"><div class="f" style="width:34%">34</div><div class="l" style="width:66%">66</div></div>
+        <div class="meta">Sul</div><div class="vbar"><div class="f" style="width:62%">62</div><div class="l" style="width:38%">38</div></div>
+      </div>
+      <p class="meta">Votos válidos · Datafolha 13–15/10 · rodada de 20–22/10 em Impacto, com ressalvas</p>
+      <button class="go" data-goto="impacto">Ver todas as regiões</button>
+    </article>
+    <article class="block sm" data-idx="Agenda Eleitoral: 25 de outubro, propaganda, diplomação">
+      <div class="bh"><div><span class="num">11</span><h3>Agenda Eleitoral</h3></div><span class="st ok">Confirmada</span></div>
+      <ul class="tl">
+        <li><span class="d">23/10 · sex</span><br>Fim da propaganda gratuita no rádio e na TV; debate da Globo</li>
+        <li class="next"><span class="d">25/10 · dom</span><br><b>Votação do 2º turno</b></li>
+        <li><span class="d">até 19/12</span><br>Diplomação dos eleitos</li>
+      </ul>
+    </article>
+    <article class="block sm" data-idx="Arquivo de Evidências: fichas, pendências, correções">
+      <div class="bh"><div><span class="num">12</span><h3>Arquivo de Evidências</h3></div><span class="st ok">19 fichas</span></div>
+      <p>Referência central. Todas as seções consultam a mesma ficha, identificada por código CE.</p>
+      <button class="go" data-goto="verificacoes">Abrir arquivo</button>
+    </article>
+  </div>
+</section>
+
+<!-- ============ CANDIDATOS ============ -->
+<section class="view" id="v-candidatos" data-view="candidatos" hidden>
+  <div class="tier"><h2>Candidatos</h2><span class="n">perfis e comparador</span></div>
+  <div class="grid g2">
+    <article class="block cand l" data-idx="Lula PT perfil presidente candidato reeleição">
+      <span class="meta">PT · candidato à reeleição</span>
+      <h3 class="t-l">Luiz Inácio Lula da Silva</h3>
+      <dl class="kv">
+        <dt>Cargo</dt><dd>Presidente da República; busca o 4º mandato</dd>
+        <dt>1º turno</dt><dd class="mono">45,16% dos válidos · 2º lugar</dd>
+        <dt>Histórico</dt><dd>Presidente de 2003 a 2010; venceu Jair Bolsonaro em 2022</dd>
+        <dt class="lv-d">Rejeição</dt><dd class="lv-d mono">47% (Quaest, 21/10)</dd>
+        <dt class="lv-d">Checagens</dt><dd class="lv-d">A Lupa checou ao menos 64 frases dele na campanha. Fichas aqui: CE-004, CE-005, CE-010 a CE-014</dd>
+        <dt class="lv-d">Digital</dt><dd class="lv-d">Índice de Popularidade Digital (Quaest): de 70,7 no 1º turno para 82,6 até 15/10</dd>
+      </dl>
+    </article>
+    <article class="block cand f" data-idx="Flávio Bolsonaro PL perfil senador">
+      <span class="meta">PL · oposição</span>
+      <h3 class="t-f">Flávio Bolsonaro</h3>
+      <dl class="kv">
+        <dt>Cargo</dt><dd>Senador pelo Rio de Janeiro; advogado e empresário</dd>
+        <dt>1º turno</dt><dd class="mono">47,03% dos válidos · 1º lugar</dd>
+        <dt>Histórico</dt><dd>Filho mais velho de Jair Bolsonaro, que o indicou como candidato do grupo</dd>
+        <dt class="lv-d">Rejeição</dt><dd class="lv-d mono">52% (Quaest, 21/10)</dd>
+        <dt class="lv-d">Checagens</dt><dd class="lv-d">Fichas aqui: CE-002, CE-003, CE-008, CE-009, CE-015 a CE-019</dd>
+        <dt class="lv-d">Digital</dt><dd class="lv-d">Índice de Popularidade Digital (Quaest): de 80 no 1º turno para 76,4 até 15/10</dd>
+      </dl>
+    </article>
+  </div>
+  <p class="notice" style="margin-top:16px">O número de fichas por candidato reflete o que foi documentado nesta edição. Não é medida de honestidade.</p>
+
+  <div class="tier"><h2>Comparador de Propostas</h2><span class="n">07</span></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Assunto</th><th class="t-l">Lula</th><th class="t-f">Flávio Bolsonaro</th><th>Fonte</th></tr></thead>
+    <tbody>
+      <tr><td>Segurança pública</td><td><i>Proposta específica não registrada nas fontes desta edição</i></td><td>Classificar facções criminosas como narcoterroristas; ampliar câmeras de reconhecimento facial no país; punições mais rigorosas (sem detalhar)</td><td class="n">CE-009</td></tr>
+      <tr><td>Soberania / minerais críticos</td><td>Questionou a relação de Flávio com os EUA e a soberania na exploração de minerais críticos</td><td><i>Resposta não registrada nas fontes desta edição</i></td><td class="n">CE-010</td></tr>
+      <tr><td>Programas de governo (TSE)</td><td colspan="2"><span class="st warn">Pendente</span> Documentos oficiais ainda não lidos</td><td class="n">—</td></tr>
+    </tbody>
+  </table></div>
+  <p class="meta" style="margin-top:8px">Células vazias indicam ausência de registro, não ausência de proposta. A simetria não é fabricada.</p>
+</section>
+
+<!-- ============ ASSUNTOS ============ -->
+<section class="view" id="v-assuntos" data-view="assuntos" hidden>
+  <div class="tier"><h2>Assuntos</h2><span class="n">o que sabemos · o que falta · por que importa</span></div>
+  <div class="grid g2">
+    <article class="block" data-idx="Assunto rejeição eleitoral">
+      <div class="bh"><h3>Rejeição</h3><span class="st ok">Medido</span></div>
+      <p class="lede">Rejeição é a parcela de eleitores que diz não votar no candidato de jeito nenhum.</p>
+      <div class="know">
+        <div><b>Sabemos</b>Na Quaest de 21/10, Flávio tem 52% e Lula 47%. A BTG/Nexus de 13/10 tinha Lula à frente na rejeição, com 51%.</div>
+        <div class="lv-d"><b>Falta saber</b>Se a queda de Lula se mantém em outros institutos. O Datafolha diz que os dois têm a mesma rejeição.</div>
+        <div><b>Por que importa</b>Num 2º turno apertado, quem tem menos rejeição tem mais espaço para crescer.</div>
+      </div>
+    </article>
+    <article class="block" data-idx="Assunto segurança pública facções narcoterroristas">
+      <div class="bh"><h3>Segurança pública</h3><span class="st warn">Parcial</span></div>
+      <p class="lede">Tema central da campanha de Flávio nos debates.</p>
+      <div class="know">
+        <div><b>Sabemos</b>Flávio propôs tratar facções como narcoterroristas (CE-009). Disse que Lula "liberou armas" para traficantes, o que a Lupa classificou como falso (CE-003).</div>
+        <div class="lv-d"><b>Falta saber</b>Como a classificação seria feita na lei e o que Lula propõe para o tema.</div>
+        <div><b>Por que importa</b>Mudanças na classificação de crimes afetam polícia, Justiça e relações externas.</div>
+      </div>
+    </article>
+    <article class="block" data-idx="Assunto gastos com viagens governo Janja 7 bilhões">
+      <div class="bh"><h3>Gastos com viagens</h3><span class="st bad">Falso</span></div>
+      <p class="lede">Flávio repetiu que Lula e Janja gastaram R$ 7 bilhões em viagens.</p>
+      <div class="know">
+        <div><b>Sabemos</b>Segundo a Lupa, o valor soma viagens de toda a estrutura do governo federal de 2023 a 2025, incluindo servidores de vários órgãos.</div>
+        <div class="lv-d"><b>Falta saber</b>Quanto, desse total, corresponde a viagens presidenciais.</div>
+        <div><b>Por que importa</b>Atribuir gasto coletivo a duas pessoas muda o tamanho da acusação.</div>
+      </div>
+    </article>
+    <article class="block" data-idx="Assunto economia PIB salário mínimo">
+      <div class="bh"><h3>Economia</h3><span class="st warn">Parcial</span></div>
+      <p class="lede">Lula usa números da economia para defender o governo.</p>
+      <div class="know">
+        <div><b>Sabemos</b>A Lupa apontou que Lula voltou a errar sobre o PIB na Band (CE-004) e exagerou o poder de compra do salário mínimo (CE-005).</div>
+        <div class="lv-d"><b>Falta saber</b>O teor exato da fala sobre o PIB e o dado correto. Pendência registrada.</div>
+        <div><b>Por que importa</b>Economia pesa na decisão de voto de quem ainda não decidiu.</div>
+      </div>
+    </article>
+  </div>
+
+  <div class="tier"><h2>Cronologia</h2><span class="n">2º turno</span></div>
+  <ul class="tl" id="crono"></ul>
+</section>
+
+<!-- ============ VERIFICAÇÕES ============ -->
+<section class="view" id="v-verificacoes" data-view="verificacoes" hidden>
+  <div class="tier"><h2>Arquivo de Evidências</h2><span class="n">fichas centrais</span></div>
+  <div class="notice" style="margin-bottom:14px">
+    Cada ficha separa três coisas: se a <b>fala aconteceu</b>, se o <b>conteúdo é verdadeiro</b> e de onde vem a <b>conclusão</b>. Textos são paráfrases, salvo indicação.
+  </div>
+  <div class="filters" id="ffil" style="margin-bottom:14px">
+    <button class="chip" data-f="todos" aria-pressed="true">Todas</button>
+    <button class="chip" data-f="lula" aria-pressed="false">Lula</button>
+    <button class="chip" data-f="flavio" aria-pressed="false">Flávio</button>
+    <button class="chip" data-f="boato" aria-pressed="false">Boatos</button>
+    <button class="chip" data-f="pendente" aria-pressed="false">Pendentes</button>
+  </div>
+  <div class="grid g2" id="fichas"></div>
+
+  <div class="tier"><h2>Debate da Globo · placar das checagens</h2><span class="n">Lupa · 23/10</span></div>
+  <div class="tbl"><table style="min-width:520px">
+    <thead><tr><th>Classificação</th><th class="t-l">Lula (10 frases)</th><th class="t-f">Flávio (15 frases)</th></tr></thead>
+    <tbody>
+      <tr><td><span class="st ok">Verdadeiro</span></td><td class="n">4</td><td class="n">4</td></tr>
+      <tr><td><span class="st warn">Falta contexto</span></td><td class="n">2</td><td class="n">4</td></tr>
+      <tr><td><span class="st warn">Exagerado / subestimado</span></td><td class="n">2</td><td class="n">3</td></tr>
+      <tr><td><span class="st bad">Falso</span></td><td class="n">2</td><td class="n">4</td></tr>
+    </tbody>
+  </table></div>
+  <p class="meta" style="margin-top:8px">A Lupa escolhe quais frases checar. O placar não mede a honestidade geral de nenhum dos dois.</p>
+
+  <div class="tier"><h2>Painel de pendências</h2></div>
+  <ul class="pend">
+    <li>Consolidar a cronologia de blocos do debate da Globo (23/10)</li>
+    <li>Teor exato da fala de Lula sobre o PIB na Band (CE-004)</li>
+    <li>Repercussão digital do debate da Globo (ainda não publicada)</li>
+    <li>Confirmar se o debate do pool SBT (15/10) foi realizado</li>
+    <li>Ler os programas de governo registrados no TSE</li>
+    <li>Datafolha 20–22/10 por região: confirmar amostra e registro na fonte original</li>
+    <li>Número de registro do Datafolha de 08/10: fontes divergem (BR-0949 e BR-02949)</li>
+    <li>Decisão do TSE sobre a ação de Flávio contra o envio de mensagens do governo (CE-019)</li>
+  </ul>
+
+  <div class="tier"><h2>Histórico de correções</h2></div>
+  <ul class="pend corr">
+    <li>24/10, 00h30 · CE-008: de "Em apuração" para "Falso", após conclusão da checagem da Lupa</li>
+    <li>24/10, 00h30 · Termômetro Digital, Radar de Viralização, Mapa das Bolhas e Brasil por Região: de "Indisponível" para dados medidos por terceiros</li>
+  </ul>
+</section>
+
+<!-- ============ IMPACTO ============ -->
+<section class="view" id="v-impacto" data-view="impacto" hidden>
+  <div class="tier"><h2>Termômetro Digital</h2><span class="n">02</span></div>
+  <article class="block">
+    <div class="bh"><div class="filters" id="tper">
+      <button class="chip" data-p="24h" aria-pressed="false">Últimas 24 horas</button>
+      <button class="chip" data-p="7d" aria-pressed="true">7 dias</button>
+      <button class="chip" data-p="30d" aria-pressed="false">30 dias</button>
+    </div><span class="st" id="tstate"></span></div>
+    <p class="meta" id="perlabel"></p>
+    <div class="tbl"><table style="min-width:560px">
+      <thead><tr><th>Indicador</th><th class="t-l">Lula</th><th class="t-f">Flávio</th><th>Estado</th><th>Fonte</th></tr></thead>
+      <tbody id="thermo-full"></tbody>
+    </table></div>
+    <p class="notice">Cada número vem de uma empresa diferente, com método próprio. Não some nem compare indicadores de fontes distintas. Menções e engajamento nunca são convertidos em votos.</p>
+    <div class="lv-d" id="whychg"></div>
+  </article>
+
+  <div class="tier"><h2>Laboratório de pesquisas</h2><span class="n">04</span></div>
+  <div class="grid g2">
+    <article class="block">
+      <div class="bh"><h3>Datafolha · votos válidos</h3><span class="st ok">Mesma metodologia</span></div>
+      <svg class="chart" viewBox="0 0 460 220" role="img" aria-label="Datafolha votos válidos: 8/10 Flávio 52 Lula 48; 15/10 51 a 49; 22/10 50 a 50">
+        <g class="grid">
+          <line x1="44" x2="440" y1="30" y2="30"/><line x1="44" x2="440" y1="80" y2="80"/><line x1="44" x2="440" y1="130" y2="130"/><line x1="44" x2="440" y1="180" y2="180"/>
+        </g>
+        <text x="36" y="34" text-anchor="end">54</text><text x="36" y="84" text-anchor="end">52</text><text x="36" y="134" text-anchor="end">50</text><text x="36" y="184" text-anchor="end">48</text>
+        <text x="80" y="206" text-anchor="middle">08/10</text><text x="240" y="206" text-anchor="middle">15/10</text><text x="400" y="206" text-anchor="middle">22/10</text>
+        <polyline fill="none" stroke="var(--flavio)" stroke-width="3" points="80,80 240,105 400,130"/>
+        <polyline fill="none" stroke="var(--lula)" stroke-width="3" points="80,180 240,155 400,130"/>
+        <g font-weight="500"><circle cx="80" cy="80" r="5" fill="var(--flavio)"/><circle cx="240" cy="105" r="5" fill="var(--flavio)"/><circle cx="400" cy="130" r="6" fill="var(--flavio)"/>
+        <circle cx="80" cy="180" r="5" fill="var(--lula)"/><circle cx="240" cy="155" r="5" fill="var(--lula)"/><circle cx="400" cy="130" r="6" fill="var(--lula)" stroke="var(--card)" stroke-width="2"/></g>
+        <text x="80" y="68" text-anchor="middle">52</text><text x="240" y="93" text-anchor="middle">51</text>
+        <text x="80" y="170" text-anchor="middle" dy="0">48</text><text x="240" y="174" text-anchor="middle">49</text><text x="414" y="126">50 × 50</text>
+      </svg>
+      <div class="legend"><span><i class="dot df"></i>Flávio</span><span><i class="dot dl"></i>Lula</span><span>margem ±2 p.p.</span></div>
+    </article>
+    <article class="block">
+      <div class="bh"><h3>Quaest · rejeição</h3><span class="st ok">Mesma metodologia</span></div>
+      <svg class="chart" viewBox="0 0 460 220" role="img" aria-label="Quaest rejeição: 21/09 Lula 55 Flávio 56; 14/10 53 e 54; 21/10 47 e 52">
+        <g class="grid">
+          <line x1="44" x2="440" y1="30" y2="30"/><line x1="44" x2="440" y1="80" y2="80"/><line x1="44" x2="440" y1="130" y2="130"/><line x1="44" x2="440" y1="180" y2="180"/>
+        </g>
+        <text x="36" y="34" text-anchor="end">58</text><text x="36" y="84" text-anchor="end">54</text><text x="36" y="134" text-anchor="end">50</text><text x="36" y="184" text-anchor="end">46</text>
+        <text x="80" y="206" text-anchor="middle">21/09</text><text x="240" y="206" text-anchor="middle">14/10</text><text x="400" y="206" text-anchor="middle">21/10</text>
+        <polyline fill="none" stroke="var(--flavio)" stroke-width="3" points="80,55 240,80 400,105"/>
+        <polyline fill="none" stroke="var(--lula)" stroke-width="3" points="80,67.5 240,92.5 400,167.5"/>
+        <circle cx="80" cy="55" r="5" fill="var(--flavio)"/><circle cx="240" cy="80" r="5" fill="var(--flavio)"/><circle cx="400" cy="105" r="6" fill="var(--flavio)"/>
+        <circle cx="80" cy="67.5" r="5" fill="var(--lula)"/><circle cx="240" cy="92.5" r="5" fill="var(--lula)"/><circle cx="400" cy="167.5" r="6" fill="var(--lula)"/>
+        <text x="80" y="44" text-anchor="middle">56</text><text x="240" y="69" text-anchor="middle">54</text><text x="414" y="109">52</text>
+        <text x="80" y="88" text-anchor="middle">55</text><text x="240" y="113" text-anchor="middle">53</text><text x="414" y="171">47</text>
+      </svg>
+      <div class="legend"><span><i class="dot df"></i>Flávio</span><span><i class="dot dl"></i>Lula</span><span>% que não votaria</span></div>
+      <p class="lv-d" style="font-size:.88rem"><b>Por que mudou?</b> Lula caiu 8 pontos desde 21/09; Flávio, 4. As fontes não estabelecem causa. Coincidir no tempo com um evento não prova efeito.</p>
+    </article>
+  </div>
+
+  <div class="tbl" style="margin-top:16px"><table>
+    <thead><tr><th>Instituto</th><th>Divulgação</th><th>Campo</th><th>Amostra</th><th>Margem</th><th>Base</th><th class="t-f">Flávio</th><th class="t-l">Lula</th><th>Registro TSE</th></tr></thead>
+    <tbody id="polls"></tbody>
+  </table></div>
+  <p class="meta" style="margin-top:8px">Votos válidos excluem brancos, nulos e indecisos. Válidos e totais não se comparam. "—" = informação não localizada.</p>
+
+  <div class="tier"><h2>Segmentos: para onde vão os votos do 1º turno</h2></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Eleitores de…</th><th class="t-f">Flávio</th><th class="t-l">Lula</th><th>Fonte</th></tr></thead>
+    <tbody>
+      <tr><td>Augusto Cury (3º, 2,89%)</td><td class="n">33%</td><td class="n">48%</td><td>Quaest, 21/10</td></tr>
+      <tr><td>Ronaldo Caiado</td><td class="n">57%</td><td class="n">21%</td><td>Quaest, 21/10</td></tr>
+      <tr><td>Renan Santos</td><td class="n">51%</td><td class="n">25%</td><td>Quaest, 21/10</td></tr>
+    </tbody>
+  </table></div>
+  <p class="meta" style="margin-top:8px">Subamostras pequenas têm margem de erro maior que a da pesquisa geral.</p>
+
+  <div class="tier"><h2>Brasil por Região</h2><span class="n">10 · Datafolha, votos válidos</span></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Região</th><th class="t-f">Flávio 13–15/10</th><th class="t-l">Lula 13–15/10</th><th class="t-f">Flávio 20–22/10</th><th class="t-l">Lula 20–22/10</th><th>Variação da diferença</th></tr></thead>
+    <tbody>
+      <tr><td>Nordeste</td><td class="n">34%</td><td class="n">66%</td><td class="n">32%</td><td class="n">68%</td><td>Lula +32 → +36</td></tr>
+      <tr><td>Sudeste</td><td class="n">56%</td><td class="n">44%</td><td class="n">56%</td><td class="n">44%</td><td>Flávio +12, estável</td></tr>
+      <tr><td>Sul</td><td class="n">62%</td><td class="n">38%</td><td class="n">64%</td><td class="n">36%</td><td>Flávio +24 → +28</td></tr>
+      <tr><td>Norte e Centro-Oeste</td><td class="n">58%</td><td class="n">42%</td><td class="n">56%</td><td class="n">44%</td><td>Flávio +16 → +12</td></tr>
+    </tbody>
+  </table></div>
+  <p class="meta" style="margin-top:8px">As fontes não informam margem de erro por região, que é maior que os ±2 p.p. nacionais. Por isso, variações de 2 a 4 pontos podem ser apenas oscilação. Na rodada anterior (6–7/10), Lula tinha 63% no Nordeste e Flávio, 61% no Norte e Centro-Oeste.</p>
+  <p class="lv-p">13–15/10: O Povo, registro BR-00466/2026. 20–22/10: Blog Cenário, que cita registro BR-09709/2026, mas informa amostra de 2.154 entrevistas e data de campo em setembro, em conflito com a CNN Brasil (2.520 entrevistas, 20 a 22/10). Os percentuais regionais estão marcados como pendentes de confirmação na fonte original.</p>
+
+  <div class="tier"><h2>Checkpoint</h2><span class="n">resumo copiável</span></div>
+  <article class="block">
+    <textarea class="ckpt" id="ckpt" readonly></textarea>
+    <button class="btn" id="copy" type="button">Copiar resumo</button>
+  </article>
+</section>
+
+<footer>
+  <p><b>Regras desta Central:</b> nenhum número é inventado ou estimado; dado ausente aparece como indisponível, nunca como zero; repercussão não é intenção de voto.</p>
+  <p class="meta">Fontes principais desta edição</p>
+  <ul>
+    <li>CartaCapital — totalização do 1º turno (05/10)</li>
+    <li>CNN Brasil — Datafolha 08/10 e 22/10</li>
+    <li>Tribuna de Jundiaí — Datafolha 15/10 e 22/10</li>
+    <li>Metrópoles, Exame — Quaest 21/10</li>
+    <li>TVT News — Quaest 14/10, BTG/Nexus</li>
+    <li>Gazeta do Povo — Real Time Big Data 23/10</li>
+    <li>Agência Brasil — debate da Band (18/10)</li>
+    <li>Agência Lupa — checagens Band e Globo</li>
+    <li>Aos Fatos — checagens 23/10</li>
+    <li>Poder360 — checagem no debate da Globo; interações (Bites)</li>
+    <li>Tribuna do Planalto — menções e sentimento (Brandwatch/FGV)</li>
+    <li>InfoMoney — Índice de Popularidade Digital (Quaest); Ativaweb</li>
+    <li>Estado de Minas — AP Exata</li>
+    <li>O Povo, Blog Cenário — Datafolha por região</li>
+    <li>Gazeta do Povo — Palver 21/10</li>
+    <li>CNN Brasil — ação no TSE (20/10)</li>
+  </ul>
+</footer>
+</div>
+
+<script>
+const FICHAS=[
+ {id:"CE-001",who:"TSE",tag:["oficial"],date:"05/10/2026",topic:"Resultado",ctx:"Totalização do 1º turno",txt:"Flávio Bolsonaro terminou com 47,03% dos votos válidos e Lula com 45,16%. Augusto Cury ficou em 3º, com 2,89%. Abstenção de 21,08%.",lit:false,
+  aconteceu:"Sim. Resultado oficial.",verdade:"Verdadeiro.",st:["ok","Confirmado"],sig:"Nenhum candidato passou de 50%, por isso há 2º turno.",como:"Totalização do TSE, noticiada por CartaCapital.",src:["CartaCapital, 05/10/2026"]},
+ {id:"CE-002",who:"Flávio Bolsonaro",tag:["flavio"],date:"18/10/2026",topic:"Gastos com viagens",ctx:"Debate da Band",txt:"Disse que Lula gastou R$ 7 bilhões em viagens com a primeira-dama Janja.",lit:false,
+  aconteceu:"Sim. Registrada pela Lupa no debate.",verdade:"Falso. O valor corresponde às viagens de toda a estrutura do governo federal de 2023 a 2025.",st:["bad","Falso"],sig:"Atribui um gasto coletivo a duas pessoas.",como:"Checagem da Lupa, que já havia desmentido a mesma afirmação em setembro.",src:["Agência Lupa, 18/10/2026","Lupa, newsletter 23/10/2026"]},
+ {id:"CE-003",who:"Flávio Bolsonaro",tag:["flavio"],date:"18/10/2026",topic:"Segurança pública",ctx:"Debate da Band",txt:"Afirmou que Lula liberou armas para traficantes.",lit:false,
+  aconteceu:"Sim. Registrada pela Lupa.",verdade:"Falso, segundo a Lupa: o presidente não liberou armas para traficantes.",st:["bad","Falso"],sig:"Acusação de que a política de armas do governo favoreceu o crime.",como:"Checagem da Lupa durante o debate.",src:["Agência Lupa, 18/10/2026"]},
+ {id:"CE-004",who:"Lula",tag:["lula","pendente"],date:"18/10/2026",topic:"Economia",ctx:"Debate da Band",txt:"Fala sobre o PIB.",lit:false,
+  aconteceu:"Sim. Registrada pela Lupa.",verdade:"A Lupa aponta erro, e diz que Lula voltou a errar no tema. Teor exato não consolidado aqui.",st:["warn","Erro apontado · teor pendente"],sig:"Uso de dado econômico para defender o governo.",como:"Título da checagem da Lupa. Ficha incompleta.",src:["Agência Lupa, 18/10/2026"]},
+ {id:"CE-005",who:"Lula",tag:["lula"],date:"18/10/2026",topic:"Economia",ctx:"Debate da Band",txt:"Comparou o poder de compra do salário mínimo.",lit:false,
+  aconteceu:"Sim. Registrada pela Lupa.",verdade:"Exagerado, segundo a Lupa.",st:["warn","Exagerado"],sig:"Argumento de melhora de renda no governo.",como:"Checagem da Lupa durante o debate.",src:["Agência Lupa, 18/10/2026"]},
+ {id:"CE-006",who:"Boato sobre Lula",tag:["boato"],date:"23/10/2026",topic:"Desinformação",ctx:"Redes sociais, antes do debate da Globo",txt:"Conteúdo dizia que Lula passou mal e não iria ao debate da Globo.",lit:false,
+  aconteceu:"O boato circulou.",verdade:"Falso. Lula participou do debate.",st:["bad","Falso"],sig:"Tentativa de desmobilizar a audiência do debate.",como:"Checagem do Aos Fatos.",src:["Aos Fatos, 23/10/2026"]},
+ {id:"CE-007",who:"Boato sobre Lula",tag:["boato"],date:"23/10/2026",topic:"Desinformação",ctx:"Áudio atribuído a Lula",txt:"Áudio em que Lula reclamaria de uma entrevista de Roberta Luchsinger à CNN.",lit:false,
+  aconteceu:"O áudio circulou.",verdade:"Falso. O áudio não é de Lula, segundo o Aos Fatos.",st:["bad","Falso"],sig:"Atribuição falsa de fala ao candidato.",como:"Checagem do Aos Fatos.",src:["Aos Fatos, 23/10/2026"]},
+ {id:"CE-008",who:"Flávio Bolsonaro",tag:["flavio"],date:"23/10/2026",topic:"Apostas on-line",ctx:"Debate da Globo",txt:"Chamou Lula de \"pai do Tigrinho\".",lit:true,
+  aconteceu:"Sim. Transcrita pela Lupa na checagem ao vivo.",verdade:"Falso. As apostas foram legalizadas pela Lei 13.756/2018, sancionada por Temer. Lula sancionou a regulamentação em 2023.",st:["bad","Falso"],sig:"Atribui a Lula a criação das apostas on-line.",como:"Checagem da Lupa, com base na legislação.",src:["Agência Lupa, 23/10/2026"],rev:"24/10: de \"Em apuração\" para \"Falso\"."},
+ {id:"CE-009",who:"Flávio Bolsonaro",tag:["flavio"],date:"18/10/2026",topic:"Segurança pública",ctx:"Debate da Band",txt:"Propôs classificar facções criminosas como narcoterroristas e ampliar câmeras de reconhecimento facial no país.",lit:false,
+  aconteceu:"Sim. Noticiada pela Agência Brasil.",verdade:"Não se aplica: é proposta, não afirmação de fato.",st:["ok","Fala confirmada"],sig:"Endurecimento da política de segurança.",como:"Cobertura da Agência Brasil.",src:["Agência Brasil, 18/10/2026"]},
+ {id:"CE-010",who:"Lula",tag:["lula"],date:"18/10/2026",topic:"Soberania",ctx:"Debate da Band",txt:"Questionou a relação de Flávio com os Estados Unidos e a soberania brasileira na exploração de minerais críticos.",lit:false,
+  aconteceu:"Sim. Noticiada pela Agência Brasil.",verdade:"Não se aplica: é questionamento político.",st:["ok","Fala confirmada"],sig:"Coloca política externa e recursos naturais no debate.",como:"Cobertura da Agência Brasil.",src:["Agência Brasil, 18/10/2026"]},
+ {id:"CE-011",who:"Lula",tag:["lula"],date:"23/10/2026",topic:"Economia",ctx:"Debate da Globo",txt:"Disse que a economia não crescia acima de 3% desde 2010.",lit:false,
+  aconteceu:"Sim. Registrada pela Lupa.",verdade:"Falso. O PIB cresceu 3,9% em 2011, 3,0% em 2013, 4,8% em 2021 e 3,0% em 2022.",st:["bad","Falso"],sig:"Apresenta o crescimento atual como inédito em mais de uma década.",como:"Checagem da Lupa com dados do PIB.",src:["Agência Lupa, 23/10/2026"]},
+ {id:"CE-012",who:"Lula",tag:["lula"],date:"23/10/2026",topic:"Apostas on-line",ctx:"Debate da Globo",txt:"Disse que o \"Tigrinho\" foi criado pelo governo Bolsonaro em 2022.",lit:false,
+  aconteceu:"Sim. Registrada pela Lupa.",verdade:"Falso. As apostas foram legalizadas em 2018, no governo Temer. Bolsonaro não regulamentou o setor.",st:["bad","Falso"],sig:"Atribui ao adversário a criação das apostas on-line.",como:"Checagem da Lupa, com base na legislação.",src:["Agência Lupa, 23/10/2026"]},
+ {id:"CE-013",who:"Lula",tag:["lula"],date:"23/10/2026",topic:"Fome",ctx:"Debate da Globo",txt:"Disse que havia 33 milhões de pessoas passando fome quando voltou à Presidência.",lit:false,
+  aconteceu:"Sim. Registrada pela Lupa.",verdade:"Verdadeiro. A Rede Penssan apontou 33,1 milhões em insegurança alimentar grave em 2022.",st:["ok","Verdadeiro"],sig:"Situação social herdada em 2023.",como:"Checagem da Lupa com dados da Rede Penssan.",src:["Agência Lupa, 23/10/2026"]},
+ {id:"CE-014",who:"Lula",tag:["lula"],date:"23/10/2026",topic:"Fome",ctx:"Debate da Globo",txt:"Disse que acabou com a fome no país em 2012.",lit:false,
+  aconteceu:"Sim. Registrada pela Lupa.",verdade:"Exagerado. A FAO tirou o Brasil do Mapa da Fome em 2014, e a fome não foi totalmente erradicada. Lula deixou a Presidência em 2010.",st:["warn","Exagerado"],sig:"Reivindica a saída do Mapa da Fome.",como:"Checagem da Lupa com dados da FAO.",src:["Agência Lupa, 23/10/2026"]},
+ {id:"CE-015",who:"Flávio Bolsonaro",tag:["flavio"],date:"23/10/2026",topic:"Inflação",ctx:"Debate da Globo",txt:"Disse que indústrias reduziram barras de chocolate de 120 g para 80 g por causa da inflação.",lit:false,
+  aconteceu:"Sim. Registrada pela Lupa.",verdade:"Falso. Barras de 80 g já eram vendidas em 2022, no governo Bolsonaro. A redução de embalagens vem desde os anos 1990.",st:["bad","Falso"],sig:"Usa a redução de embalagens como sinal de inflação no governo atual.",como:"Checagem da Lupa.",src:["Agência Lupa, 23/10/2026"]},
+ {id:"CE-016",who:"Flávio Bolsonaro",tag:["flavio"],date:"23/10/2026",topic:"Gastos do governo",ctx:"Debate da Globo",txt:"Disse que Lula já gastou mais de R$ 400 bilhões para tentar se reeleger.",lit:false,
+  aconteceu:"Sim. Registrada pela Lupa.",verdade:"Exagerado. O valor reúne medidas com impacto orçamentário, não gastos pagos. Parte é renúncia fiscal, e não há prova de objetivo eleitoral.",st:["warn","Exagerado"],sig:"Acusa uso do orçamento para fins eleitorais.",como:"Checagem da Lupa.",src:["Agência Lupa, 23/10/2026"]},
+ {id:"CE-017",who:"Flávio Bolsonaro",tag:["flavio"],date:"23/10/2026",topic:"Segurança pública",ctx:"Debate da Globo",txt:"Disse que o governo defende que ladrão de celular não seja preso porque rouba para comprar cerveja.",lit:false,
+  aconteceu:"Sim. Registrada pela Lupa.",verdade:"Falso. Trechos de uma entrevista de Lula de 2017 foram editados. Ele falava de desesperança social, sem defender impunidade.",st:["bad","Falso"],sig:"Associa o governo à tolerância com o crime.",como:"Checagem da Lupa com a entrevista original.",src:["Agência Lupa, 23/10/2026"]},
+ {id:"CE-018",who:"Flávio Bolsonaro",tag:["flavio"],date:"23/10/2026",topic:"Endividamento",ctx:"Debate da Globo",txt:"Disse que mais de 80 milhões de brasileiros estão com contas atrasadas.",lit:false,
+  aconteceu:"Sim. Registrada pela Lupa.",verdade:"Verdadeiro. A Serasa indica 83,9 milhões de inadimplentes em agosto de 2026.",st:["ok","Verdadeiro"],sig:"Aponta endividamento das famílias.",como:"Checagem da Lupa com dados da Serasa.",src:["Agência Lupa, 23/10/2026"]},
+ {id:"CE-019",who:"Campanha de Flávio",tag:["flavio","pendente"],date:"20/10/2026",topic:"Justiça Eleitoral",ctx:"Ação no TSE",txt:"Pede a cassação da chapa Lula–Alckmin por abuso de poder, alegando uso de dados oficiais para enviar mensagens de WhatsApp sobre programas do governo durante a campanha.",lit:false,
+  aconteceu:"Sim. Ação protocolada e distribuída ao corregedor-geral, ministro Ricardo Villas Bôas Cueva.",verdade:"Não determinado. É uma acusação em julgamento, não um fato comprovado.",st:["warn","Sem decisão"],sig:"Questiona se a comunicação institucional do governo favoreceu o candidato.",como:"Reportagem da CNN Brasil. A fonte não traz resposta do governo ou da campanha de Lula.",src:["CNN Brasil, 20/10/2026"]}
+];
+const POLLS=[
+ ["Datafolha","08/10","06–07/10","2.520","±2","Válidos","52","48","BR-0949/2026*"],
+ ["BTG/Nexus","13/10","—","—","—","Válidos","52","48","—"],
+ ["Quaest","14/10","10–13/10","2.154","±2","Totais","46","44","—"],
+ ["Datafolha","15/10","13–15/10","2.520","±2","Válidos","51","49","BR-00466/2026"],
+ ["Quaest","21/10","17–20/10","2.154","±2","Totais","45","44","BR-08535/2026"],
+ ["Palver","21/10","18–20/10","5.000","±2,4","Totais","50","48","BR-04612/2026"],
+ ["Datafolha","22/10","20–22/10","2.520","±2","Válidos","50","50","—"],
+ ["Vox","até 23/10","—","—","—","Válidos","49,4","50,6","—"],
+ ["Ipespe/Abrapel","até 23/10","—","—","—","Válidos","50,5","49,5","—"],
+ ["Real Time Big Data","23/10","—","—","±2","Válidos","52","48","—"]
+];
+const CRONO=[
+ ["04/10","1º turno: Flávio 47,03%, Lula 45,16%"],["05/10","TSE conclui a totalização"],
+ ["08/10","1ª Datafolha do 2º turno: Flávio 52% × Lula 48% (válidos)"],["13/10","BTG/Nexus: Flávio 52% × Lula 48% (válidos)"],
+ ["14/10","1ª Quaest do 2º turno: Flávio 46% × Lula 44% (totais)"],["15/10","Datafolha: 51% × 49%. Debate do pool SBT previsto, realização não confirmada"],
+ ["18/10","Debate da Band: 2,37 milhões de menções nas redes, divididas quase igualmente"],["20/10","Campanha de Flávio aciona o TSE contra mensagens do governo no WhatsApp"],
+ ["21/10","Quaest: rejeição de Lula cai para 47%. Palver: Flávio 50% × Lula 48% (totais)"],["22/10","Datafolha: empate em 50%"],
+ ["23/10","Debate da Globo; Lupa checa 25 frases; fim da propaganda gratuita"],["25/10","Votação do 2º turno",1]
+];
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const whoCls=f=>f.tag.includes("lula")?"t-l":f.tag.includes("flavio")?"t-f":"";
+
+function renderFichas(filter="todos"){
+  $("#fichas").innerHTML=FICHAS.filter(f=>filter==="todos"||f.tag.includes(filter)).map(f=>`
+  <article class="ficha" id="${f.id}" data-idx="${esc(f.id+" "+f.who+" "+f.topic+" "+f.txt)}" data-to="verificacoes">
+    <div class="top"><span class="fid">${f.id}</span><span class="who ${whoCls(f)}">${esc(f.who)}</span><span class="meta">${f.date} · ${esc(f.ctx)}</span><span class="st ${f.st[0]}" style="margin-left:auto">${esc(f.st[1])}</span></div>
+    <span class="para">${f.lit?"Citação literal":"Paráfrase"} · ${esc(f.topic)}</span>
+    <blockquote>${esc(f.txt)}</blockquote>
+    <dl class="six lv-d">
+      <div><dt>O que significa?</dt><dd>${esc(f.sig)}</dd></div>
+      <div><dt>A fala aconteceu?</dt><dd>${esc(f.aconteceu)}</dd></div>
+      <div><dt>O conteúdo é verdadeiro?</dt><dd>${esc(f.verdade)}</dd></div>
+      <div><dt>Como sabemos?</dt><dd>${esc(f.como)}</dd></div>
+    </dl>
+    <div class="lv-p">Fontes:<ul>${f.src.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>Revisões: ${esc(f.rev||"nenhuma.")}</div>
+  </article>`).join("");
+}
+renderFichas();
+$("#ffil").addEventListener("click",e=>{const b=e.target.closest("[data-f]");if(!b)return;
+  $$("#ffil .chip").forEach(c=>c.setAttribute("aria-pressed",c===b));renderFichas(b.dataset.f);});
+
+$("#polls").innerHTML=POLLS.map(r=>`<tr>${r.map((c,i)=>`<td class="${i>=2&&i!==5?"n":""}">${esc(c)}</td>`).join("")}</tr>`).join("");
+$("#crono").innerHTML=CRONO.map(c=>`<li class="${c[2]?"next":""}"><span class="d">${c[0]}</span><br>${esc(c[1])}</li>`).join("");
+
+const BW="Brandwatch · Lilian Carvalho (FGV/EAESP)", BT="Agência Bites", AV="Ativaweb Datalab", AP="AP Exata", QI="Quaest · IPD";
+const NA="indisponível";
+const THERMO={
+ "24h":{label:"Últimas 24 horas · após o debate da Globo (23/10)",why:"",rows:[
+   ["Todos os indicadores",NA,NA,"na","Medições do debate da Globo ainda não publicadas"]]},
+ "7d":{label:"Últimos 7 dias · 18 e 19/10, após o debate da Band",rows:[
+   ["Volume de menções","1,17 mi","1,2 mi","ok",BW],
+   ["Sentimento positivo","20%","11%","ok",BW],
+   ["Sentimento negativo","27%","34%","ok",BW],
+   ["Saldo de sentimento","−7 p.p.","−23 p.p.","ok","Calculado sobre "+BW],
+   ["Sentimento neutro e ambíguo",NA,NA,"na","Não divulgado pela fonte"],
+   ["Interações em 24h","25,5 mi","5 mi","ok",BT],
+   ["Ganho de seguidores","+176 mil",NA,"warn",BT+" (sem dado de Flávio)"],
+   ["Visualizações de vídeos (madrugada)","65,7 mi","22,1 mi","ok",AV],
+   ["Menções favoráveis, antes → depois","39,80% → 38,65%","40,09% → 37,93%","ok",AP],
+   ["Pico de menções","≈330 mil/h · dom 21h–22h","—","ok",BW+" (pico do debate, sem divisão por candidato)"],
+   ["Temas associados","Globo, Roberta Luchsinger, sigilos, segurança","Escala 6×1, salário mínimo (58 mil cada)","ok",BW],
+   ["Diferenças entre plataformas",NA,NA,"na","Fontes não separam por rede"],
+   ["Relevância e alcance",NA,NA,"na","Não divulgado"],
+   ["Publicidade paga ou coordenação",NA,NA,"na","Sem evidência publicada"]],
+  why:"<p><b>Por que mudou?</b> Após a Band, as menções favoráveis caíram para os dois (AP Exata), e a vantagem numérica passou de Flávio para Lula por menos de 1 ponto. A própria empresa diz que as oscilações não mudaram o equilíbrio da corrida. Não há evidência de que o debate tenha causado mudança de voto.</p>"},
+ "30d":{label:"Últimos 30 dias · do 1º turno até 15/10",rows:[
+   ["Índice de Popularidade Digital","70,7 → 82,6","80 → 76,4","ok",QI+" (Facebook, Instagram, X, TikTok, YouTube, Google, Wikipédia)"],
+   ["Demais indicadores",NA,NA,"na","Sem série de 30 dias publicada"]],
+  why:"<p><b>Por que mudou?</b> A Quaest diz que a alta de Lula coincidiu com mudanças na comunicação digital da campanha, manifestações de rua e a aprovação do fim da escala 6×1 no Senado. Também registrou queda de engajamento da campanha de Flávio após o 1º turno. Coincidência no tempo não prova causa.</p>"}
+};
+const STL={ok:["ok","Medido"],warn:["warn","Parcial"],na:["na","Indisponível"]};
+function renderThermo(p){const d=THERMO[p];
+  $("#perlabel").textContent=d.label;
+  const allNA=d.rows.every(r=>r[3]==="na");$("#tstate").className="st "+(allNA?"na":"ok");$("#tstate").textContent=allNA?"Indisponível":"Medido por terceiros";
+  $("#thermo-full").innerHTML=d.rows.map(r=>`<tr><td>${esc(r[0])}</td><td class="${r[1].length<24?"n ":""}${r[1]===NA?"":"t-l"}">${esc(r[1])}</td><td class="${r[2].length<24?"n ":""}${r[2]===NA?"":"t-f"}">${esc(r[2])}</td><td><span class="st ${STL[r[3]][0]}">${STL[r[3]][1]}</span></td><td class="meta">${esc(r[4])}</td></tr>`).join("");
+  $("#whychg").innerHTML=d.why||"";}
+renderThermo("7d");
+$("#tper").addEventListener("click",e=>{const b=e.target.closest("[data-p]");if(!b)return;
+  $$("#tper .chip").forEach(c=>c.setAttribute("aria-pressed",c===b));renderThermo(b.dataset.p);});
+
+/* navegação */
+const VIEWS=["inicio","candidatos","assuntos","verificacoes","impacto"];
+function show(v,anchor){ if(!VIEWS.includes(v)) v="inicio";
+  $$("section.view").forEach(s=>s.hidden=s.dataset.view!==v);
+  $$("nav.sec a").forEach(a=>a.toggleAttribute("aria-current",a.dataset.v===v)); $$("nav.sec a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page")});
+  if(anchor){const el=document.getElementById(anchor); if(el){el.scrollIntoView({block:"center"}); el.style.outline="2px solid var(--mark)"; setTimeout(()=>el.style.outline="",1800);}}
+  else window.scrollTo({top:0});
+}
+$$("nav.sec a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();try{history.replaceState(null,"","#"+a.dataset.v)}catch(_){}show(a.dataset.v)}));
+document.addEventListener("click",e=>{const g=e.target.closest("[data-goto]");if(g){show(g.dataset.goto)}});
+show((location.hash||"").slice(1));
+
+/* leitura fácil */
+function setLevel(l){document.body.dataset.level=l;$$("#lvl button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===l));try{localStorage.setItem("ce-level",l)}catch(_){}}
+$("#lvl").addEventListener("click",e=>{const b=e.target.closest("button");if(b)setLevel(b.dataset.l)});
+let saved="detalhado";try{saved=localStorage.getItem("ce-level")||saved}catch(_){}setLevel(saved);
+
+/* busca universal */
+const q=$("#q"),res=$("#res");
+q.addEventListener("input",()=>{const t=q.value.trim().toLowerCase();if(t.length<2){res.hidden=true;return;}
+  renderFichas("todos");$$("#ffil .chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.f==="todos"));
+  const hits=$$("[data-idx]").filter(el=>el.dataset.idx.toLowerCase().includes(t)||el.textContent.toLowerCase().includes(t)).slice(0,10);
+  res.innerHTML=hits.length?hits.map((el,i)=>{const sec=el.closest("section.view").dataset.view;if(!el.id)el.id="hit-"+sec+"-"+i+"-"+Math.random().toString(36).slice(2,6);
+    const title=(el.querySelector("h3,blockquote")||el).textContent.trim().slice(0,90);
+    return `<button data-sec="${sec}" data-id="${el.id}">${esc(title)}<small>${sec.toUpperCase()}</small></button>`}).join(""):`<button disabled>Nada encontrado para “${esc(t)}”</button>`;
+  res.hidden=false;});
+res.addEventListener("click",e=>{const b=e.target.closest("[data-sec]");if(!b)return;res.hidden=true;show(b.dataset.sec,b.dataset.id)});
+document.addEventListener("click",e=>{if(!e.target.closest(".search"))res.hidden=true});
+
+/* checkpoint */
+$("#ckpt").value=`CENTRAL ELEITORAL — CHECKPOINT
+Edição: 24/10/2026, 00h30 (2º turno em 25/10)
+
+ESTADO
+- 1º turno (TSE): Flávio 47,03% × Lula 45,16% (válidos)
+- Datafolha 20–22/10: 50% × 50% (válidos); 47% × 46% (totais), ±2 p.p.
+- Quaest 21/10: Flávio 45% × Lula 44% (totais); rejeição 52% × 47%
+- Real Time Big Data 23/10: Flávio 52% × Lula 48% (válidos)
+- Palver 18–20/10: Flávio 50% × Lula 48% (totais), ±2,4 p.p.
+- Região (Datafolha 13–15/10, válidos): Lula 66% no Nordeste; Flávio lidera Sul (62%), Sudeste (56%), Norte/CO (58%)
+- Debates realizados: Band (18/10), Globo (23/10)
+- Lupa no debate da Globo: Lula 2 falsas em 10; Flávio 4 falsas em 15
+
+TERMÔMETRO (pós-Band, 18–19/10, fontes de terceiros)
+- Menções: Lula 1,17 mi × Flávio 1,2 mi (Brandwatch/FGV)
+- Positivo/negativo: Lula 20%/27% × Flávio 11%/34%
+- Interações 24h: Lula 25,5 mi × Flávio 5 mi (Bites)
+
+FICHAS: CE-001 a CE-019
+
+PENDÊNCIAS
+- Repercussão digital e cronologia do debate da Globo
+- Programas de governo no TSE
+- Confirmar Datafolha regional de 20–22/10
+- Decisão do TSE sobre CE-019
+
+DECISÕES: dados ausentes = indisponível; válidos e totais não se comparam.`;
+/* botão Atualizar agora: dispara a tarefa que pesquisa e republica a página */
+const TRIGGER_ID="trig_01PjVswcH2vSP7Avk7p8cn7c", SERVER="Claude Code Remote", LOCK_MS=15*60*1000;
+const updBtn=$("#upd"), updMsg=$("#updmsg");
+function say(t,err){updMsg.textContent=t;updMsg.classList.toggle("err",!!err)}
+function lockedUntil(){try{return +localStorage.getItem("ce-upd")||0}catch(_){return 0}}
+function showLock(){const left=lockedUntil()-Date.now();if(left>0){updBtn.disabled=true;
+  say("Atualização em andamento. Leva de 5 a 15 minutos; a página recarrega sozinha quando a nova edição for publicada.");
+  setTimeout(()=>{updBtn.disabled=false;say("Se a página não mudou, a busca pode não ter encontrado novidades. Você pode tentar de novo.")},left);}}
+if(!window.claude){updBtn.hidden=true;say("Versão estática. A atualização automática só funciona na página aberta no claude.ai.");}
+else showLock();
+let mcpP=null;
+updBtn.addEventListener("click",async()=>{
+  if(updBtn.disabled)return;
+  updBtn.disabled=true;say("Iniciando a atualização…");
+  if(!mcpP)mcpP=window.claude?.use?window.claude.use("mcp"):Promise.resolve(null);
+  const mcp=await mcpP;
+  if(!mcp){updBtn.disabled=false;say("Este botão só funciona com a página aberta no claude.ai, logado na conta dona da Central.",true);return;}
+  try{
+    await mcp.callTool(SERVER,"fire_trigger",{trigger_id:TRIGGER_ID});
+    try{localStorage.setItem("ce-upd",String(Date.now()+LOCK_MS))}catch(_){}
+    showLock();
+  }catch(e){
+    updBtn.disabled=false;
+    const c=e&&e.code;
+    if(c==="not_in_manifest"||c==="approval_required"||c==="consent_required")say("A atualização precisa da sua permissão. Clique de novo e permita o acesso quando o claude.ai perguntar.",true);
+    else if(c==="server_not_connected"||c==="needs_reauth")say("Conecte o Claude Code Remote em Configurações → Conectores do claude.ai e tente de novo.",true);
+    else if(c==="tool_error")say("A tarefa de atualização não pôde ser iniciada. Ela pode ter sido apagada ou pausada.",true);
+    else if(c==="server_unavailable"||c==="upstream_error")say("O serviço não respondeu. A atualização pode ter começado mesmo assim; espere alguns minutos antes de tentar de novo.",true);
+    else say("Não foi possível iniciar a atualização agora.",true);
+  }
+});
+$("#copy").addEventListener("click",async()=>{const b=$("#copy");try{await navigator.clipboard.writeText($("#ckpt").value);b.textContent="Copiado"}catch(_){$("#ckpt").select();b.textContent="Texto selecionado. Use Ctrl+C"}setTimeout(()=>b.textContent="Copiar resumo",2200)});
+</script>
+
+</body>
+</html>
