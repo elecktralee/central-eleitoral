@@ -503,7 +503,7 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
   <ul class="pend corr">
     <li>24/10, 00h30 · CE-008: de "Em apuração" para "Falso", após conclusão da checagem da Lupa</li>
     <li>24/10, 00h30 · Termômetro Digital, Radar de Viralização, Mapa das Bolhas e Brasil por Região: de "Indisponível" para dados medidos por terceiros</li>
-    <li>24/10, 00h50 · Termômetro: linha da Meta reescrita para deixar claro quem fica em desvantagem; caso Nikolas (CE-023). Pesquisas: incluídas três rodadas do Instituto Veritá. Termômetro: temas detalhados com contagens; "Diferenças entre plataformas", "Relevância e alcance" e "Publicidade paga ou coordenação" preenchidos; fichas CE-020 a CE-022</li>
+    <li>24/10, 00h50 · Termômetro: neutro calculado a partir dos dados publicados e dados da Datrix. Linha da Meta reescrita para deixar claro quem fica em desvantagem; caso Nikolas (CE-023). Pesquisas: incluídas três rodadas do Instituto Veritá. Termômetro: temas detalhados com contagens; "Diferenças entre plataformas", "Relevância e alcance" e "Publicidade paga ou coordenação" preenchidos; fichas CE-020 a CE-022</li>
   </ul>
 </section>
 
@@ -643,6 +643,7 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
     <li>Estado de Minas — NetLab/UFRJ, preço dos anúncios na Meta</li>
     <li>Times Brasil, Congresso em Foco — ações no TSE (08/10 e 21/10)</li>
     <li>Brasil 247, Agenda do Poder (Folha) — caso Nikolas e Meta</li>
+    <li>Exame, Correio Braziliense — sentimento nas redes (Datrix)</li>
   </ul>
 </footer>
 </div>
@@ -761,7 +762,12 @@ const THERMO={
    ["Sentimento positivo","20%","11%","ok",BW],
    ["Sentimento negativo","27%","34%","ok",BW],
    ["Saldo de sentimento","−7 p.p.","−23 p.p.","ok","Calculado sobre "+BW],
-   ["Sentimento neutro e ambíguo",NA,NA,"na","Não divulgado pela fonte"],
+   ["Neutro ou não classificado (calculado)","53%","55%","calc","100% − positivo − negativo, sobre "+BW+" · neutro e ambíguo vêm somados"],
+   ["Ambíguo, separado do neutro",NA,NA,"na","Nenhuma fonte divulgou"],
+   ["Positivo / negativo · 12 a 18/10","30% / 30%","39% / 34%","ok","Datrix · margem ≈5 p.p. por candidato e dia"],
+   ["Neutro ou não classificado · 12 a 18/10 (calculado)","40%","27%","calc","100% − positivo − negativo, sobre Datrix"],
+   ["Saldo de sentimento · 5–11/10 → 12–18/10","−10,6 → −0,6","+17,2 → +4,9","ok","Datrix · saldo = % positivo − % negativo"],
+   ["Saldo de Flávio com e sem o X · 16 a 19/10","—","+7,1 com o X; +16,5 fora do X","ok","Datrix · um perfil no X amplificava críticas a Flávio"],
    ["Interações em 24h","25,5 mi","5 mi","ok",BT],
    ["Ganho de seguidores","+176 mil",NA,"warn",BT+" (sem dado de Flávio)"],
    ["Visualizações de vídeos (madrugada)","65,7 mi","22,1 mi","ok",AV],
@@ -785,7 +791,7 @@ const THERMO={
    ["Coordenação de perfis","Acusações dos dois lados no TSE, sem decisão de mérito (CE-020 a CE-023)",null,"warn","Nenhuma coordenação comprovada até esta edição"]],
   why:"<p><b>Por que mudou?</b> Após a Band, as menções favoráveis caíram para os dois (AP Exata), e a vantagem numérica passou de Flávio para Lula por menos de 1 ponto. A própria empresa diz que as oscilações não mudaram o equilíbrio da corrida. Não há evidência de que o debate tenha causado mudança de voto.</p>"}
 };
-const STL={ok:["ok","Medido"],warn:["warn","Parcial"],ind:["warn","Indício"],na:["na","Indisponível"]};
+const STL={ok:["ok","Medido"],calc:["ok","Calculado"],warn:["warn","Parcial"],ind:["warn","Indício"],na:["na","Indisponível"]};
 function renderThermo(p){const d=THERMO[p];
   $("#perlabel").textContent=d.label;
   const allNA=d.rows.every(r=>r[3]==="na");$("#tstate").className="st "+(allNA?"na":"ok");$("#tstate").textContent=allNA?"Indisponível":"Medido por terceiros";
