@@ -304,7 +304,7 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
   <div class="tier"><h2>Investigação</h2><span class="n">05–09</span></div>
   <div class="grid g3">
     <article class="block sm" data-idx="Fato ou Fake: checagens Lupa, Aos Fatos">
-      <div class="bh"><div><span class="num">05</span><h3>Fato ou Fake</h3></div><span class="st ok">22 fichas</span></div>
+      <div class="bh"><div><span class="num">05</span><h3>Fato ou Fake</h3></div><span class="st ok">23 fichas</span></div>
       <p>Checagens publicadas por Lupa e Aos Fatos sobre falas dos dois candidatos e boatos sobre eles.</p>
       <p class="lv-d meta">A Lupa já checou mais de 130 frases de Lula e Flávio na campanha.</p>
       <button class="go" data-goto="verificacoes">Ver fichas</button>
@@ -361,7 +361,7 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
       </ul>
     </article>
     <article class="block sm" data-idx="Arquivo de Evidências: fichas, pendências, correções">
-      <div class="bh"><div><span class="num">12</span><h3>Arquivo de Evidências</h3></div><span class="st ok">22 fichas</span></div>
+      <div class="bh"><div><span class="num">12</span><h3>Arquivo de Evidências</h3></div><span class="st ok">23 fichas</span></div>
       <p>Referência central. Todas as seções consultam a mesma ficha, identificada por código CE.</p>
       <button class="go" data-goto="verificacoes">Abrir arquivo</button>
     </article>
@@ -493,7 +493,7 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
     <li>Ler os programas de governo registrados no TSE</li>
     <li>Datafolha 20–22/10 por região: confirmar amostra e registro na fonte original</li>
     <li>Número de registro do Datafolha de 08/10: fontes divergem (BR-0949 e BR-02949)</li>
-    <li>Decisões do TSE sobre as ações CE-019 a CE-022</li>
+    <li>Decisões do TSE sobre as ações CE-019 a CE-022 e resposta da Meta no caso Nikolas (CE-023)</li>
     <li>Impulsionamento de Lula: fontes divergem (R$ 2,69 mi em 7/10 no Jornal de Brasília; R$ 2,59 mi em 23/10 na Agência Cenarium)</li>
     <li>Alcance real (pessoas únicas) nas plataformas: nenhuma fonte divulgou</li>
     <li>Veritá: as rodadas de 21/10 e 23/10 informam a mesma amostra (15.554) com campos sobrepostos e registros diferentes; método não divulgado nas rodadas de 06/10 e 21/10</li>
@@ -503,7 +503,7 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
   <ul class="pend corr">
     <li>24/10, 00h30 · CE-008: de "Em apuração" para "Falso", após conclusão da checagem da Lupa</li>
     <li>24/10, 00h30 · Termômetro Digital, Radar de Viralização, Mapa das Bolhas e Brasil por Região: de "Indisponível" para dados medidos por terceiros</li>
-    <li>24/10, 00h50 · Pesquisas: incluídas três rodadas do Instituto Veritá. Termômetro: temas detalhados com contagens; "Diferenças entre plataformas", "Relevância e alcance" e "Publicidade paga ou coordenação" preenchidos; fichas CE-020 a CE-022</li>
+    <li>24/10, 00h50 · Termômetro: linha da Meta reescrita para deixar claro quem fica em desvantagem; caso Nikolas (CE-023). Pesquisas: incluídas três rodadas do Instituto Veritá. Termômetro: temas detalhados com contagens; "Diferenças entre plataformas", "Relevância e alcance" e "Publicidade paga ou coordenação" preenchidos; fichas CE-020 a CE-022</li>
   </ul>
 </section>
 
@@ -642,6 +642,7 @@ footer ul{margin:0;padding-left:18px;columns:2 300px;font-family:var(--f-mono);f
     <li>Agência Cenarium, Jornal de Brasília — impulsionamento (DivulgaCand)</li>
     <li>Estado de Minas — NetLab/UFRJ, preço dos anúncios na Meta</li>
     <li>Times Brasil, Congresso em Foco — ações no TSE (08/10 e 21/10)</li>
+    <li>Brasil 247, Agenda do Poder (Folha) — caso Nikolas e Meta</li>
   </ul>
 </footer>
 </div>
@@ -691,7 +692,9 @@ const FICHAS=[
  {id:"CE-021",who:"Campanha de Flávio",tag:["flavio","pendente"],date:"08/10/2026",topic:"Coordenação nas redes",ctx:"Ação no TSE",txt:"Acusa Lula e Alckmin de se beneficiarem de uma rede de 1.525 perfis no Instagram que espalharia conteúdo falso contra Flávio, ligada ao programa Porta-Voz do Lula.",lit:false,
   aconteceu:"Sim. Ação protocolada; pedidos de bloqueio de 32 perfis aguardam análise.",verdade:"Não determinado. A reportagem não traz resposta da campanha de Lula.",st:["warn","Sem decisão"],sig:"Questiona se o alcance pró-Lula nas redes foi organizado de forma irregular.",como:"Reportagem do Times Brasil.",src:["Times Brasil, 08/10/2026"]},
  {id:"CE-022",who:"Coligação de Lula",tag:["lula","pendente"],date:"21/10/2026",topic:"Plataformas e anúncios",ctx:"Ação no TSE",txt:"Pede a cassação da chapa de Flávio, alegando que algoritmos, ferramentas de IA e anúncios da Meta e do X favoreceram Flávio e prejudicaram Lula.",lit:false,
-  aconteceu:"Sim. Ação AIJE 0603276-73.2026.6.00.0000, distribuída ao corregedor-geral.",verdade:"Não determinado. A Meta atribuiu as falhas nos anúncios de Lula a erros técnicos. A empresa citada como contratada da campanha de Flávio nega irregularidade.",st:["warn","Sem decisão"],sig:"Questiona se as plataformas trataram as campanhas de forma desigual.",como:"Reportagem do Congresso em Foco; estudo do NetLab/UFRJ citado como indício.",src:["Congresso em Foco, 22/10/2026","Estado de Minas, NetLab/UFRJ"]}
+  aconteceu:"Sim. Ação AIJE 0603276-73.2026.6.00.0000, distribuída ao corregedor-geral. A campanha descreve o caso como boicote das plataformas a Lula.",verdade:"Não determinado. A Meta atribuiu as falhas nos anúncios de Lula a erros técnicos. A empresa citada como contratada da campanha de Flávio nega irregularidade.",st:["warn","Sem decisão"],sig:"Questiona se as plataformas trataram as campanhas de forma desigual.",como:"Reportagem do Congresso em Foco; estudo do NetLab/UFRJ citado como indício.",src:["Congresso em Foco, 22/10/2026","Estado de Minas, NetLab/UFRJ"]},
+ {id:"CE-023",who:"TSE e Meta",tag:["pendente"],date:"22/10/2026",topic:"Plataformas e alcance",ctx:"Pedido da campanha de Lula",txt:"O corregedor-geral eleitoral deu 12 horas para a Meta explicar como o algoritmo distribuiu os posts de Nikolas Ferreira, aliado de Flávio, sob multa de R$ 100 mil por hora de atraso.",lit:false,
+  aconteceu:"Sim. Antes, em 15/10, o TSE já havia pedido à Meta as medidas aplicadas ao perfil dele. Sleeping Giants, Artigo 19 e CTRL+Z também acionaram o Ministério Público Eleitoral.",verdade:"Não determinado. O volume de visualizações é real, mas a causa não está provada. A Meta diz que o alcance depende do engajamento e nega viés político.",st:["warn","Em investigação"],sig:"Se confirmado, indicaria tratamento desigual das campanhas pela plataforma.",como:"Brasil 247 e Agenda do Poder, com dados da análise da Folha de S.Paulo.",src:["Brasil 247, 22/10/2026","Agenda do Poder / Folha, 17/10/2026"]}
 ];
 const POLLS=[
  ["Veritá","06/10","26/09–02/10","40.500","—","Válidos","51,56","48,44","BR-01234/2026"],
@@ -777,11 +780,12 @@ const THERMO={
    ["Diferenças entre plataformas","Ver quadro Por plataforma, abaixo",null,"ok","Mobile Time, DSC Lab, Bites"],
    ["Relevância e alcance","Alcance não divulgado. Visualizações diárias no Instagram no 2º turno: Lula 56 mi, Flávio 21,3 mi",null,"warn","DSC Lab, 5 a 16/10 · visualização não é alcance"],
    ["Impulsionamento declarado ao TSE","R$ 2,59 mi","R$ 18,03 mi","ok","Agência Cenarium, dados do DivulgaCand até 23/10 · preliminar"],
-   ["Preço dos anúncios na Meta","Lula pagou de 33% a 43% mais por mil pessoas alcançadas, em 3 de 4 modelos",null,"warn","NetLab/UFRJ e IPIE, 1º turno · indícios, não conclusão; a Meta nega critério político"],
-   ["Coordenação de perfis","Acusações dos dois lados no TSE, sem decisão de mérito (CE-020 a CE-022)",null,"warn","Nenhuma coordenação comprovada até esta edição"]],
+   ["Meta: Lula em desvantagem nos anúncios?","Para alcançar o mesmo número de pessoas, Lula pagou de 33% a 43% mais caro que Flávio. O mesmo dinheiro rendeu menos para Lula.",null,"ind","NetLab/UFRJ e IPIE, 1º turno · o estudo não é conclusivo porque a Meta não libera os dados brutos; a Meta nega critério político"],
+   ["Meta: alcance de aliados de Flávio","Reels de Nikolas Ferreira tiveram mediana de 38,25 mi de visualizações, acima de Kim Kardashian (13,9 mi) e Beyoncé (11,7 mi). Um vídeo pró-Flávio passou de 103 mi em 9 horas.",null,"ind","Análise da Folha (300 vídeos de 30 perfis) · TSE cobra explicação da Meta (CE-023); visualização não é alcance e não prova favorecimento"],
+   ["Coordenação de perfis","Acusações dos dois lados no TSE, sem decisão de mérito (CE-020 a CE-023)",null,"warn","Nenhuma coordenação comprovada até esta edição"]],
   why:"<p><b>Por que mudou?</b> Após a Band, as menções favoráveis caíram para os dois (AP Exata), e a vantagem numérica passou de Flávio para Lula por menos de 1 ponto. A própria empresa diz que as oscilações não mudaram o equilíbrio da corrida. Não há evidência de que o debate tenha causado mudança de voto.</p>"}
 };
-const STL={ok:["ok","Medido"],warn:["warn","Parcial"],na:["na","Indisponível"]};
+const STL={ok:["ok","Medido"],warn:["warn","Parcial"],ind:["warn","Indício"],na:["na","Indisponível"]};
 function renderThermo(p){const d=THERMO[p];
   $("#perlabel").textContent=d.label;
   const allNA=d.rows.every(r=>r[3]==="na");$("#tstate").className="st "+(allNA?"na":"ok");$("#tstate").textContent=allNA?"Indisponível":"Medido por terceiros";
@@ -840,7 +844,7 @@ TERMÔMETRO (pós-Band, 18–19/10, fontes de terceiros)
 - Positivo/negativo: Lula 20%/27% × Flávio 11%/34%
 - Interações 24h: Lula 25,5 mi × Flávio 5 mi (Bites)
 
-FICHAS: CE-001 a CE-022
+FICHAS: CE-001 a CE-023
 
 PUBLICIDADE PAGA (DivulgaCand, até 23/10): impulsionamento Flávio R$ 18,03 mi × Lula R$ 2,59 mi
 
