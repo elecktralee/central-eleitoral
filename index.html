@@ -157,6 +157,9 @@ tr:last-child td{border-bottom:0}
 .six dt{font-family:var(--f-display);font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
 .six dd{margin:0}
 .fstrip{display:flex;gap:6px;flex-wrap:wrap}
+.fsrc{font-size:.82rem;border-top:1px solid var(--rule);padding-top:8px;margin-top:2px}
+.fsrc span{font-family:var(--f-display);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.fsrc a{color:inherit;text-decoration-color:var(--mark);text-underline-offset:2px;text-decoration-thickness:2px}
 
 /* candidatos */
 .cand{border-top:6px solid}
@@ -535,7 +538,7 @@ footer a,.lv-p a,.meta a,.lede a{color:inherit;text-decoration-color:var(--mark)
   <ul class="pend corr">
     <li>24/10, 00h30 · CE-008: de "Em apuração" para "Falso", após conclusão da checagem da Lupa</li>
     <li>24/10, 00h30 · Termômetro Digital, Radar de Viralização, Mapa das Bolhas e Brasil por Região: de "Indisponível" para dados medidos por terceiros</li>
-    <li>24/10, 01h15 · Termômetro: temas lado a lado para os dois candidatos; emoções, saldo do dia do debate e volume da Datrix. 24/10, 01h10 · CE-004: de "Erro apontado · teor pendente" para "Falso". CE-019: pedido de urgência negado pelo TSE. Debate do SBT: de "não confirmado" para "cancelado". Termômetro: seguidores e pico de Flávio. Comparador preenchido com os planos do TSE. Fontes das fichas agora com link</li>
+    <li>24/10, 01h20 · Fichas: links das matérias sempre visíveis, em qualquer nível de Leitura Fácil. 24/10, 01h15 · Termômetro: temas lado a lado para os dois candidatos; emoções, saldo do dia do debate e volume da Datrix. 24/10, 01h10 · CE-004: de "Erro apontado · teor pendente" para "Falso". CE-019: pedido de urgência negado pelo TSE. Debate do SBT: de "não confirmado" para "cancelado". Termômetro: seguidores e pico de Flávio. Comparador preenchido com os planos do TSE. Fontes das fichas agora com link</li>
     <li>24/10, 00h50 · Termômetro: neutro calculado a partir dos dados publicados e dados da Datrix. Linha da Meta reescrita para deixar claro quem fica em desvantagem; caso Nikolas (CE-023). Pesquisas: incluídas três rodadas do Instituto Veritá. Termômetro: temas detalhados com contagens; "Diferenças entre plataformas", "Relevância e alcance" e "Publicidade paga ou coordenação" preenchidos; fichas CE-020 a CE-022</li>
   </ul>
 </section>
@@ -804,7 +807,8 @@ function renderFichas(filter="todos"){
       <div><dt>O conteúdo é verdadeiro?</dt><dd>${esc(f.verdade)}</dd></div>
       <div><dt>Como sabemos?</dt><dd>${esc(f.como)}</dd></div>
     </dl>
-    <div class="lv-p">Fontes:<ul>${f.src.map(s=>`<li>${SRCURL[s]?`<a href="${SRCURL[s]}" target="_blank" rel="noopener">${esc(s)}</a>`:esc(s)}</li>`).join("")}</ul>Revisões: ${esc(f.rev||"nenhuma.")}</div>
+    <div class="fsrc"><span>Matéria${f.src.length>1?"s":""}:</span> ${f.src.map(s=>SRCURL[s]?`<a href="${SRCURL[s]}" target="_blank" rel="noopener">${esc(s)} ↗</a>`:`${esc(s)}`).join(" · ")}</div>
+    <div class="lv-p">Revisões: ${esc(f.rev||"nenhuma.")}</div>
   </article>`).join("");
 }
 renderFichas();
