@@ -535,7 +535,7 @@ footer a,.lv-p a,.meta a,.lede a{color:inherit;text-decoration-color:var(--mark)
   <ul class="pend corr">
     <li>24/10, 00h30 · CE-008: de "Em apuração" para "Falso", após conclusão da checagem da Lupa</li>
     <li>24/10, 00h30 · Termômetro Digital, Radar de Viralização, Mapa das Bolhas e Brasil por Região: de "Indisponível" para dados medidos por terceiros</li>
-    <li>24/10, 01h10 · CE-004: de "Erro apontado · teor pendente" para "Falso". CE-019: pedido de urgência negado pelo TSE. Debate do SBT: de "não confirmado" para "cancelado". Termômetro: seguidores e pico de Flávio. Comparador preenchido com os planos do TSE. Fontes das fichas agora com link</li>
+    <li>24/10, 01h15 · Termômetro: temas lado a lado para os dois candidatos; emoções, saldo do dia do debate e volume da Datrix. 24/10, 01h10 · CE-004: de "Erro apontado · teor pendente" para "Falso". CE-019: pedido de urgência negado pelo TSE. Debate do SBT: de "não confirmado" para "cancelado". Termômetro: seguidores e pico de Flávio. Comparador preenchido com os planos do TSE. Fontes das fichas agora com link</li>
     <li>24/10, 00h50 · Termômetro: neutro calculado a partir dos dados publicados e dados da Datrix. Linha da Meta reescrita para deixar claro quem fica em desvantagem; caso Nikolas (CE-023). Pesquisas: incluídas três rodadas do Instituto Veritá. Termômetro: temas detalhados com contagens; "Diferenças entre plataformas", "Relevância e alcance" e "Publicidade paga ou coordenação" preenchidos; fichas CE-020 a CE-022</li>
   </ul>
 </section>
@@ -830,10 +830,15 @@ const THERMO={
    ["Sentimento negativo","27%","34%","ok",BW],
    ["Saldo de sentimento","−7 p.p.","−23 p.p.","ok","Calculado sobre "+BW],
    ["Neutro ou não classificado (calculado)","53%","55%","calc","100% − positivo − negativo, sobre "+BW+" · neutro e ambíguo vêm somados"],
-   ["Ambíguo, separado do neutro",NA,NA,"na","Nenhuma fonte divulgou"],
+   ["Ambíguo, separado do neutro",NA,NA,"na","Nenhuma empresa publicou essa categoria; ela está somada ao neutro na linha acima"],
+   ["Emoções nos posts com emoção identificada","56% medo · 29% alegria","66% alegria · 18% tristeza · 10% raiva","ok",BW+" · alegria pode ser humor ou ironia, não aprovação"],
    ["Positivo / negativo · 12 a 18/10","30% / 30%","39% / 34%","ok","Datrix · margem ≈5 p.p. por candidato e dia"],
    ["Neutro ou não classificado · 12 a 18/10 (calculado)","40%","27%","calc","100% − positivo − negativo, sobre Datrix"],
    ["Saldo de sentimento · 5–11/10 → 12–18/10","−10,6 → −0,6","+17,2 → +4,9","ok","Datrix · saldo = % positivo − % negativo"],
+   ["Saldo de sentimento no dia do debate (18/10)","+2,3","+2,4","ok","Datrix"],
+   ["Publicações, impressões e interações · 14 a 18/10","2,26× as publicações, 1,45× as impressões e 1,92× as interações de Flávio","Base de comparação (1×)","ok","Datrix · razão entre os dois candidatos"],
+   ["Crescimento das interações desde antes do 1º turno","+70,4%","+128,4%","ok","Datrix"],
+   ["Perfis influentes falando de cada um","63 para cada 100 sobre Flávio (antes: 50)","100 (base)","ok","Datrix · perfis com 10 mil seguidores ou mais"],
    ["Saldo de Flávio com e sem o X · 16 a 19/10","—","+7,1 com o X; +16,5 fora do X","ok","Datrix · um perfil no X amplificava críticas a Flávio"],
    ["Interações em 24h","25,5 mi","5 mi","ok",BT],
    ["Novos seguidores no Instagram após o debate","178 mil","149 mil","ok","Quaest, via Folha"],
@@ -847,13 +852,10 @@ const THERMO={
    ["Interesse de busca no Google (Trends)","49, estável","6 → 15","ok","Quaest, via Folha · escala relativa de 0 a 100"],
    ["Referências ao debate nas publicações","288 mil","426 mil","ok",BT],
    ["Memes e cortes do debate","9.500 posts","7.000 posts","ok",BT],
-   ["Tema · sigilo bancário","501 mil citações · desafio de Lula para Flávio abrir sigilos",null,"ok",BT+" (tema do debate, sem divisão por candidato)"],
-   ["Tema · Lulinha, filho de Lula","400 mil publicações","—","ok",BT],
-   ["Tema · Ana Clara","—","303 mil publicações","ok",BT+" (associado a Flávio nas buscas)"],
-   ["Tema · escala 6×1","—","58 mil menções","ok",BW],
-   ["Tema · salário mínimo","—","58 mil menções","ok",BW],
-   ["Hashtag #LULAVAIVENCER","98 mil ocorrências","—","ok",BW],
-   ["Temas sem contagem divulgada","Globo, Roberta Luchsinger, segurança pública","—","ok",BW],
+   ["Tema compartilhado · sigilo bancário","501 mil citações · desafio de Lula para Flávio abrir sigilos",null,"ok",BT+" (tema do debate, sem divisão por candidato)"],
+   ["1º tema mais ligado ao nome","Lulinha, filho de Lula · 400 mil publicações","Ana Clara · 303 mil publicações","ok",BT],
+   ["2º tema mais ligado ao nome","#LULAVAIVENCER · 98 mil ocorrências","Escala 6×1 · 58 mil menções","ok",BW],
+   ["3º tema mais ligado ao nome","Globo, Roberta Luchsinger, segurança pública · sem contagem divulgada","Salário mínimo · 58 mil menções","ok",BW],
    ["Buscas no Google ligadas ao nome","Lulinha em 20 de 25 consultas sobre Lula","\"Flávio miliciano\": mais de 500 mil; \"Flávio Comando Vermelho\" e \"Flávio Ana Clara\": mais de 100 mil cada","ok",BT+" · termos pesquisados por usuários, não são fatos verificados"],
    ["Diferenças entre plataformas","Ver quadro Por plataforma, abaixo",null,"ok","Mobile Time, DSC Lab, Bites"],
    ["Relevância e alcance","Alcance não divulgado. Visualizações diárias no Instagram no 2º turno: Lula 56 mi, Flávio 21,3 mi",null,"warn","DSC Lab, 5 a 16/10 · visualização não é alcance"],
